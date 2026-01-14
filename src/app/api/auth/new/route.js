@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import  prisma  from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { z} from 'zod'
 import bcrypt from 'bcrypt'
 
@@ -32,6 +32,32 @@ const userSchema = z.object({
 export async function POST (_req) {
 
     try {
+
+        const body = await _req.json() ;
+
+        const validation = userSchema.safeParse(body)
+
+        if(!validation.success) {
+            return NextResponse.json(validation.error.flatten().fieldErrors ,{status:400})
+        }
+
+        const {email,name,password} = validation.data
+
+        const checkEmail = await prisma.user.findUnique({
+            where:{email:email}
+        })
+
+        if(email) {
+            console.log('error mail') 
+            return NextResponse.json(
+                {
+                    message:'אימייל כבר קיים במערכת '
+                } ,
+                {status:400}
+            )
+        }
+
+        
         
     } catch (error) {
             console.log('there was error with server ')
