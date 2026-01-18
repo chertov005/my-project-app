@@ -51,23 +51,16 @@ export default function LoginPage() {
 
 
 
-
-
-
- 
-
-
-
   return (
-    <div className='h-screen bg-gray-200 flex flex-col justify-center items-center'>
+    <div className='h-screen bg-gray-200 flex flex-col justify-center items-center' dir='rtl'>
       {/* handleSubmit עוטף את doForm ובודק שכל השדות תקינים לפני שהוא מפעיל אותה */}
       <form
         onSubmit={handleSubmit(doForm)}
         className='p-10 rounded shadow-md bg-white text-gray-400 flex flex-col border w-full max-w-md mx-auto transition-all'
       >
         <div className='flex flex-col items-center text-center gap-4'>
-          <h4 className='border-b text-xs tracking-widest font-bold uppercase text-gray-400'>Welcome Back</h4>
-          <h1 className='text-violet-400 tracking-widest font-extralight text-5xl'>Login</h1>
+          <h4 className='border-b text-xs tracking-widest font-bold uppercase text-gray-400'>ברוך הבא לאתר</h4>
+          <h1 className='text-violet-400 tracking-widest font-extralight text-5xl'>התחבר</h1>
         </div>
 
         {/* טרינארי להצגת שגיאת שרת - יופיע רק אם ה-State מלא */}
@@ -79,7 +72,7 @@ export default function LoginPage() {
 
         <div className='flex flex-col items-start relative mt-10 '>
           {/* תווית מעוצבת מעל האינפוט */}
-          <label className='absolute bottom-2 left-2 text-[10px] uppercase font-bold text-violet-300'>Email:</label>
+          <label className='absolute bottom-2 left-2 text-[10px] uppercase font-bold text-violet-300'>אימייל:</label>
           <input
             // register מחבר את האינפוט ל-react-hook-form
             {...register('email', {
@@ -90,7 +83,7 @@ export default function LoginPage() {
               }
             })}
             // טרינארי ב-className: אם יש שגיאה באימייל, הגבול יהיה אדום
-            className={`w-full rounded p-2 border outline-0 focus:ring-2 ring-violet-300 hover:bg-gray-100 duration-500 text-end ${errors.email ? 'border-red-400' : 'border-gray-300'}`}
+            className={`w-full rounded p-2 border outline-0 focus:ring-2 ring-violet-300 hover:bg-gray-100 duration-500 text-start ${errors.email ? 'border-red-400' : 'border-gray-300'}`}
             placeholder='enter your email'
             type='email'
           />
@@ -99,10 +92,10 @@ export default function LoginPage() {
         {errors.email && <p className='text-[10px] text-red-400 font-bold mt-1'>{errors.email.message}</p>}
 
         <div className='flex flex-col items-start relative mt-4'>
-          <label className='absolute bottom-2 left-2 text-[10px] uppercase font-bold text-violet-300'>Password:</label>
+          <label className='absolute bottom-2 left-2 text-[10px] uppercase font-bold text-violet-300'>סיסמה:</label>
           <input
             {...register('password', { required: 'סיסמה חובה' })}
-            className={`w-full rounded p-2 border outline-0 focus:ring-2 ring-violet-300 hover:bg-gray-100 duration-500 text-end ${errors.password ? 'border-red-400' : 'border-gray-300'}`}
+            className={`w-full rounded p-2 border outline-0 focus:ring-2 ring-violet-300 hover:bg-gray-100 duration-500 text-start ${errors.password ? 'border-red-400' : 'border-gray-300'}`}
             placeholder='enter your password'
             type='password'
           />
@@ -114,7 +107,7 @@ export default function LoginPage() {
           <button disabled={loading} className='w-full text-white p-3 rounded active:scale-95 duration-500 text-center flex flex-col items-center cursor-pointer font-bold tracking-tighter shadow-lg bg-violet-400'>
 
             {
-              loading ? <AiOutlineLoading3Quarters className='animate-spin' />  : <p>Submit</p>
+              loading ? <AiOutlineLoading3Quarters className='animate-spin' />  : <p>שלח</p>
             }
 
           </button>
