@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 'use client' // מציין שזו קומפוננטת צד לקוח (חובה לשימוש ב-Hooks ובטפסים)
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -49,8 +42,10 @@ export default function LoginPage() {
   // אם הגענו לכאן - הכל תקין
   router.push('/dashboard');
   router.refresh();
+  console.log(data)
 
     }
+
 
 
 

@@ -75,6 +75,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         }
     },
 
+    pages:{
+       
+        signIn: '/login' ,
+        newUser: '/register' ,
+        
+        
+    } ,
+
     // מפתח סודי המשמש להצפנת העוגיות (חובה להגדיר ב-.env)
     secret: process.env.AUTH_SECRET
 });
