@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { prisma } from "./lib/prisma"; // מייבא את החיבור לבסיס הנתונים (Prisma)
 import { PrismaAdapter } from "@auth/prisma-adapter"; // מאפשר ל-Auth.js לנהל משתמשים בבסיס הנתונים שלנו
 import Credentials from 'next-auth/providers/credentials'; // מאפשר התחברות עצמאית עם אימייל וסיסמה
-import bcrypt from 'bcrypt'; // ספרייה שבודקת אם הסיסמה שהוזנה תואמת לסיסמה המוצפנת ב-DB
+import bcrypt from 'bcryptjs'; // ספרייה שבודקת אם הסיסמה שהוזנה תואמת לסיסמה המוצפנת ב-DB
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
     // הגדרת המתאם שמחבר את Auth.js לטבלאות של Prisma
