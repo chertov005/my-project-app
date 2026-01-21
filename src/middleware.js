@@ -12,7 +12,7 @@ export default auth((_reg) => {
 
 
   // 1. הגנה על נתיבי API (מחריגים את נתיבי ה-auth של המערכת)
-  if (pathname.startsWith('/api') && !itsLogin && !pathname.startsWith('/api/register')) {
+  if (pathname.startsWith('/api') && !itsLogin && !pathname.startsWith('/api/auth')) {
     return Response.json(
       { message: 'אינך משתמש מחובר' },
       { status: 401 }

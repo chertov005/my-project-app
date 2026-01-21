@@ -25,7 +25,7 @@ export default function RegisterUser() {
       setLoading(true)
       setServerError('')
 
-      const url = 'http://localhost:3000/api/register'
+      const url = '/api/register';
 
       const resp = await axios.post(url , _date)
 
