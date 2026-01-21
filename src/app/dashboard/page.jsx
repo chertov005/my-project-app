@@ -1,9 +1,16 @@
-import React from 'react'
+import { auth } from "@/auth";
 
-export default function page() {
+export default async function DashboardPage() {
+  const session = await auth();
+
+  // אם ה-Middleware איכשהו פוספס, זה קו ההגנה השני
+  if (!session) {
+    return <div>טוען או מפנה ללוגין...</div>;
+  }
+
   return (
     <div>
-      <p className='text-5xl'>Welcome</p>
+      <h1>Welcome, {session.user?.name}</h1>
     </div>
-  )
+  );
 }

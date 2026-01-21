@@ -9,10 +9,10 @@ import { auth } from "./auth";
 export default auth((_reg) => {
   const itsLogin = !!_reg.auth;
   const { pathname } = _reg.nextUrl;
-  const role =  _reg.auth?.user?.role
+
 
   // 1. הגנה על נתיבי API (מחריגים את נתיבי ה-auth של המערכת)
-  if (pathname.startsWith('/api') && !itsLogin && !pathname.startsWith('/api/auth')) {
+  if (pathname.startsWith('/api') && !itsLogin && !pathname.startsWith('/api/register')) {
     return Response.json(
       { message: 'אינך משתמש מחובר' },
       { status: 401 }
