@@ -8,8 +8,12 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function LoginPage() {
   // מושכים את ה-session ואת ה-status (loading, authenticated, unauthenticated)
-  const { data: session, status } = useSession();
-  
+const {data:session } =  useSession()  
+// אם ה-Session בטעינה, אפשר להציג Loader קטן או פשוט לחכות
+const name = session?.user?.name;
+
+
+
   const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -17,8 +21,6 @@ export default function LoginPage() {
   const router = useRouter();
   const { register, formState: { errors }, handleSubmit } = useForm();
 
-  // אם ה-Session בטעינה, אפשר להציג Loader קטן או פשוט לחכות
-  const name = session?.user?.name;
 
   const doForm = async (formData) => {
     setLoading(true);

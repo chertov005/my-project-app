@@ -14,6 +14,9 @@ export default function RegisterUser() {
 
   const {formState:{errors} ,handleSubmit ,register ,getValues} = useForm()
 
+  const [registeredName, setRegisteredName] = useState('');
+
+
   const router = useRouter()
   const [loading , setLoading] = useState(false)
   const [serverError ,setServerError] = useState('')
@@ -30,6 +33,8 @@ export default function RegisterUser() {
       const resp = await axios.post(url , _date)
 
       if(resp.status == 201) {
+
+        setRegisteredName(_date.name)
 
         setTimeout(() => {
 
@@ -73,7 +78,7 @@ export default function RegisterUser() {
 
           <div className='flex flex-col text-center gap-4 '>
 
-            <h4 className='text-xs font-bold tracking-widest border-b'>התחברת בהצלחה.</h4>
+            <h4 className='text-xs font-bold tracking-widest border-b'>התחברת בהצלחה. {registeredName}</h4>
             <h2 className='text-3xl font-extralight tracking-widest text-violet-400 text-shadow-2xs text-shadow-amber-400'>הינך עובר לעמוד התחברת לאתר</h2>
           </div>
 
