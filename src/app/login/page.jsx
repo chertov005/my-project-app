@@ -7,11 +7,17 @@ import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react' // הפונקציה המרכזית להתחברות מהדפדפן
 import { useRouter } from 'next/navigation' // לניווט בין דפים אחרי ההצלחה
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { auth } from '@/auth'
+
 
 
 export default function LoginPage() {
   // State לניהול מצב טעינה - כדי למנוע לחיצות כפולות על הכפתור
   const [loading, setLoading] = useState(false)
+
+  const session =  auth()
+
+  const {name} = session.user ;
 
   const [login, setLogin] = useState(false)
 
@@ -24,42 +30,36 @@ export default function LoginPage() {
   const { register, formState: { errors }, handleSubmit } = useForm()
 
 
-  const doForm = async (_date) => {
+  const doForm = async (_data) =>  {
 
-    setLoading(true)
-    setServerError('')
+    setLoading(true) 
 
-    const data = await signIn('credentials', {
-      email: _date.email,
-      password: _date.password,
-      redirect: false
+    const data = await signIn('credentials' ,{
+    email:_data.email,
+    passord:_data.passord ,
+    redirect:false
     })
-    // אם יש שגיאה - טפל בה וצא מהפונקציה
-    if (data?.error) {
-      setServerError('פרטי התחברות שגויים');
-      return setLoading(false);
-    }
 
-    // אם הגענו לכאן - הכל תקין
-
-    setTimeout(() => {
-
-      setLoading(false)
-      setLogin(true)
+    if(data?.ok) {
 
       setTimeout(() => {
-        router.push('/dashboard');
-        router.refresh();
-        console.log(data)
-      }, 3000)
 
-    }, 1000)
+        setLoading(false) 
+        setLogin(true)
+
+        router.push('/') 
+        router.refresh()
+
+      } ,1000)
+
+    }
+
+
+
+
 
 
   }
-
-
-
 
 
 
@@ -73,7 +73,7 @@ export default function LoginPage() {
         <div className='p-8 rounded shadow bg-white text-gray-400 flex flex-col items-center shadow-gray-400'>
 
           <div className='flex flex-col gap-4 text-center'>
-            <h1 className='text-xs font-bold tracking-widest'>התחברת בהצלחה </h1>
+            <h1 className='text-xs font-bold tracking-widest'>התחברת בהצלחה {name}</h1>
             <h4 className='text-5xl tracking-widest text-violet-400 font-extralight border-b border-t bg-orange-50'>הינך עובר לעמוד פרופיל</h4>
           </div>
 
