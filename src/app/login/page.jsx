@@ -7,11 +7,17 @@ import { useForm } from 'react-hook-form'
 import { signIn } from 'next-auth/react' // הפונקציה המרכזית להתחברות מהדפדפן
 import { useRouter } from 'next/navigation' // לניווט בין דפים אחרי ההצלחה
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { auth } from '@/auth'
+
 
 
 export default function LoginPage() {
   // State לניהול מצב טעינה - כדי למנוע לחיצות כפולות על הכפתור
   const [loading, setLoading] = useState(false)
+
+  const session = await auth() 
+
+  const {name } = session.user
 
   const [login, setLogin] = useState(false)
 
@@ -73,7 +79,7 @@ export default function LoginPage() {
         <div className='p-8 rounded shadow bg-white text-gray-400 flex flex-col items-center shadow-gray-400'>
 
           <div className='flex flex-col gap-4 text-center'>
-            <h1 className='text-xs font-bold tracking-widest'>התחברת בהצלחה </h1>
+            <h1 className='text-xs font-bold tracking-widest'>התחברת בהצלחה {name}</h1>
             <h4 className='text-5xl tracking-widest text-violet-400 font-extralight border-b border-t bg-orange-50'>הינך עובר לעמוד פרופיל</h4>
           </div>
 
