@@ -7,36 +7,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 1. הגדרת סוגי התפקידים האפשריים
+// 1. הגדרת תפקידי משתמשים
 enum UserRole {
   USER
   ADMIN
 }
 
+// 2. מודל משתמש
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String    @unique
   password      String?
   image         String?
-  // 2. הוספת שדה התפקיד עם ערך ברירת מחדל
-  role          UserRole  @default(USER) 
+  role          UserRole  @default(USER)
   createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
+  // קשרים (Relations)
+  posts         Post[]    // חיבור לפוסטים שהמשתמש יצר
   accounts      Account[]
   sessions      Session[]
 }
 
+// 3. מודל פוסטים (ללא published)
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // קשר למשתמש (כל פוסט חייב יוצר)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+// 4. מודלים עבור NextAuth (Prisma Adapter)
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  access_token      String?
-  token_type        String?
-  scope             String?
-  id_token          String?
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -48,8 +68,7 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
