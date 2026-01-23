@@ -8,10 +8,11 @@ import {
   FileText, 
   UserCircle,
   Settings,
-  User
+  User ,
+  LogOut
 } from 'lucide-react'
 
-export default function SidBarDashboard({name , role}) {
+export default function SidBarDashboard({name , role ,myLogOut}) {
   
   // הגדרת State לשמירת הנתיב (href) של הכפתור שנבחר כרגע. ברירת מחדל היא '#'
   const [onClickItemMenu, setOnClickItemMenu] = useState('#')
@@ -49,7 +50,7 @@ export default function SidBarDashboard({name , role}) {
               <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex items-center rounded p-2 justify-between w-full my-4 duration-300 ${onClickItemMenu === item.href ? "bg-violet-400 " :'hover:bg-white/10 transition-all duration-300'}`}> 
 
                 <div className={`flex items-center gap-2 font-bold tracking-widest text-zinc-400 my-2`}>
-                  <span className={`${onClickItemMenu === item.href ? 'text-white'  : 'text-zinc-400'}`}>{item.icon}</span>
+                  <span className={`${onClickItemMenu === item.href ? 'text-white'  : 'text-zinc-400 duration-300 hover:scale-125'}`}>{item.icon}</span>
                   <span className={`${onClickItemMenu === item.href ? 'text-white'  : 'text-zinc-400'}`}>{item.name}</span>
                 </div>
 
@@ -70,8 +71,9 @@ export default function SidBarDashboard({name , role}) {
 
       <div className='flex flex-col items-start p-7 w-full h-full justify-around text-zinc-400'>
 
-        <span className='flex items-center gap-2 w-full hover:bg-white/10 p-4 rounded hover:text-white duration-300 font-bold tracking-widest cuSV'><User/> {name}  </span>
+        <span className='flex items-center gap-2 w-full hover:bg-white/10 p-4 rounded hover:text-white duration-300 font-bold tracking-widest '><User/> {name}  </span>
         <span className='flex items-center gap-2 p-4 font-bold tracking-widest opacity-55'><Settings/>Role: {role}  </span>
+        <span onClick={ ()  =>  myLogOut()  } className='flex items-center gap-2 p-4 font-bold tracking-widest opacity-55 hover:text-red-500 cursor-pointer duration-300'><LogOut/>יציאה מהמערכת  </span>
 
       </div>
 

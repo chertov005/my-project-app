@@ -3,7 +3,7 @@
 
 
 import SidBarDashboard from '../components/dashboard/sidBarDashboard'
-import { auth } from '@/auth'
+import { auth ,signOut } from '@/auth'
 
 export  default async function layoutDashboard({children}) {
 
@@ -11,13 +11,21 @@ export  default async function layoutDashboard({children}) {
 
   const {name ,role} = session?.user
 
+  const logOutUser = async () => {
+
+    'use server'
+
+    await signOut({redirectTo:'/login'})
+
+  }
+
   return (
     <div dir='rtl' className='border h-screen w-full bg-black text-white ' >
 
       <div className='flex w-full  h-full '>
 
         <div className='w-[15%] h-full'>
-          <SidBarDashboard name={name } role={role}/>
+          <SidBarDashboard name={name } role={role} myLogOut={logOutUser}/>
         </div>
 
         <main className='w-[80%] h-full'> 
