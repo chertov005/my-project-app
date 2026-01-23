@@ -104,15 +104,39 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
             initial={{opacity:0}}
             animate={{opacity:0.8}}
             exit={{opacity:0}}
-            transition={{duration:0.8 , ease:'easeIn'}}
+            transition={{duration:0.5 , ease:'easeIn'}}
               
             />
 
 
 
-            <div>
+            <motion.div className='fixed right-0 top-0 h-full flex flex-col w-[60%] bg-gray-100 rounded z-50 shadow p-2 cursor-grab' 
 
-            </div>
+            initial={{x:'100%'}} 
+            animate={{x:0}} 
+            exit={{x:'100%'}}
+            transition={{duration:0.8 , ease:'easeIn'}}
+            drag='x'
+            dragConstraints={{right:0 , left:0}}
+            onDragEnd={((e , drag) => {
+              if(drag.offset.x > 180) {
+                setOpen(false)
+              }
+            })}
+            >
+
+              <div className='flex items-center justify-between border-b border-gray-300 py-2'>
+
+                <div className='flex items-center gap-2'>
+                <span><LayoutDashboard className='text-2xl text-violet-400'/></span>
+                <p className='text-[10pt] text-zinc-400 tracking-widest font-bold' >לוח בקרבה ראשי </p>
+                </div>
+
+                <button className='rounded-full bg-orange-400 text-white p-3 h-5 w-5 flex items-center justify-center text-[10pt] font-bold'>D</button>
+
+              </div>
+
+            </motion.div>
             
         
             
