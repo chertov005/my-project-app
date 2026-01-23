@@ -126,15 +126,33 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
             >
 
               <div className='flex items-center justify-between border-b border-gray-300 py-2'>
-
                 <div className='flex items-center gap-2'>
                 <span><LayoutDashboard className='text-2xl text-violet-400'/></span>
                 <p className='text-[10pt] text-zinc-400 tracking-widest font-bold' >לוח בקרבה ראשי </p>
                 </div>
 
                 <button className='rounded-full bg-orange-400 text-white p-3 h-5 w-5 flex items-center justify-center text-[10pt] font-bold'>D</button>
-
               </div>
+
+
+              <nav>
+                <div className='mt-10'>
+                  {menuItem?.map((item , i ) => (
+                    <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex w-full my-6`}>
+                      <div className='flex justify-between items-center w-full'>
+
+                        <div className='flex items-center text-zinc-400 gap-2 '>
+                          <span>{item.icon}</span>
+                          <span>{item.name}</span>
+                        </div>
+
+                        <span className='w-3 h-3 rounded-full bg-green-700 animate-pulse '/>
+
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </nav>
 
             </motion.div>
             
