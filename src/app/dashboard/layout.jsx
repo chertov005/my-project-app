@@ -20,7 +20,7 @@ export  default async function layoutDashboard({children}) {
   }
 
   return (
-    <div dir='rtl' className='border h-screen w-full bg-black text-white ' >
+    <div dir='rtl' className=' h-screen w-full bg-black text-white ' >
 
       <div className='flex w-full  h-full '>
 
