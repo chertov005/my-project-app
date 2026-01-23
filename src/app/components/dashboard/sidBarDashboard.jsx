@@ -9,14 +9,18 @@ import {
   UserCircle,
   Settings,
   User ,
-  LogOut
+  LogOut ,
+  Menu ,
+  ArrowRight
 } from 'lucide-react'
+
+import { motion ,AnimatePresence } from 'framer-motion'
 
 export default function SidBarDashboard({name , role ,myLogOut}) {
   
   // הגדרת State לשמירת הנתיב (href) של הכפתור שנבחר כרגע. ברירת מחדל היא '#'
   const [onClickItemMenu, setOnClickItemMenu] = useState('#')
-
+  const [open , setOpen] = useState(false)
   // יצירת מערך של אובייקטים המייצגים את פריטי התפריט - שם, נתיב ואייקון לכל אחד
   const menuItem = [
     { name: 'לוח בקרה', href: '#', icon: <LayoutDashboard size={20} /> },
@@ -26,8 +30,10 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
   ]
 
   return (
-    // המכולה הראשית: רקע כהה, גובה מסך מלא, רוחב קבוע, ריפוד וסידור גמיש (Flex) מלמעלה למטה בכיוון RTL
-    <div className='bg-[#424242] h-screen w-72 rounded-md p-4 flex flex-col justify-around' dir="rtl">
+
+
+ <>
+    <div className='bg-[#424242] h-screen w-72 rounded-md p-4 2xl:xl:flex flex-col justify-around hidden' dir="rtl">
 
       {/* מיכל עליון (70% גובה): מכיל את הכותרת ואת רשימת הניווט */}
       <div className="w-full h-[70%] bg-[#242424] rounded-xl flex flex-col overflow-hidden shadow-lg">
@@ -80,21 +86,60 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
       </div>     
       
     </div>
+
+
+
+      <div className='2xl:hidden'>
+
+        <button className='z-50 fixed top-3 right-2 2xl:hidden p-1 bg-gray-600/80 shadow-md rounded text-white duration-500 '  onClick={() => setOpen(!open)}> {open ? <ArrowRight/> : <Menu/>}  </button>
+
+        {
+          open && (
+            <>
+
+         
+
+            <motion.div className='fixed inset-0 bg-black z-50 ' onClick={() => setOpen(false) }
+            
+            initial={{opacity:0}}
+            animate={{opacity:0.8}}
+            exit={{opacity:0}}
+            transition={{duration:0.8 , ease:'easeIn'}}
+              
+            />
+
+
+
+            <div>
+
+            </div>
+            
+        
+            
+            </>
+          )
+        }
+        
+      </div>
+</>
+
+
+
   )
 }
 
 // קומפוננטת האב להצגת התוצאה הסופית על המסך
 // export function App() {
-//   return (
-//     // מיכל ראשי לתצוגה המקדימה עם רקע כהה מאוד
-//     <div className="flex bg-zinc-900 min-h-screen p-4 gap-4" dir="rtl">
-//       {/* קריאה לסיידבר שבנינו */}
-//       <SidBarDashboard />
-//       {/* אזור התוכן הראשי (Main Content) ליד הסיידבר */}
-//       <div className="flex-1 p-10 text-white text-right bg-[#242424] rounded-xl border border-white/5">
-//         <h1 className="text-3xl font-bold mb-4">תצוגה מקדימה</h1>
-//         <p className="text-zinc-400">לחץ על הכפתורים בתפריט כדי לראות את הלוגיקה של ההערות בפעולה.</p>
-//       </div>
-//     </div>
-//   )
+  //   return (
+    //     // מיכל ראשי לתצוגה המקדימה עם רקע כהה מאוד
+    //     <div className="flex bg-zinc-900 min-h-screen p-4 gap-4" dir="rtl">
+    //       {/* קריאה לסיידבר שבנינו */}
+    //       <SidBarDashboard />
+    //       {/* אזור התוכן הראשי (Main Content) ליד הסיידבר */}
+    //       <div className="flex-1 p-10 text-white text-right bg-[#242424] rounded-xl border border-white/5">
+    //         <h1 className="text-3xl font-bold mb-4">תצוגה מקדימה</h1>
+    //         <p className="text-zinc-400">לחץ על הכפתורים בתפריט כדי לראות את הלוגיקה של ההערות בפעולה.</p>
+    //       </div>
+    //     </div>
+    //   )
 // }
