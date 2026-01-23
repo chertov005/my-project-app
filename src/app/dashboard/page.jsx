@@ -9,7 +9,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center h-full w-full text-center" dir="rtl">
       <h1>Welcome, {session.user?.name}</h1>
     </div>
   );
