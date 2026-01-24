@@ -96,7 +96,7 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
         {
           !open && (
             
-            <motion.div className='w-5 h-full fixed bg-transparent right-0 top-0 z-40 cursor-grab' 
+            <motion.div className='w-10 h-full fixed bg-transparent right-0 top-0 z-40 cursor-grab' 
             
                         transition={{duration:0.5 , ease:'easeIn'}}
                         drag='x'
