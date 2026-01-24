@@ -11,8 +11,13 @@ import {
   User ,
   LogOut ,
   Menu ,
-  ArrowRight
+  ArrowRight ,
+  User2Icon ,
+  
 } from 'lucide-react'
+
+import { IoIosMedical } from "react-icons/io";
+
 
 import { motion ,AnimatePresence } from 'framer-motion'
 
@@ -131,7 +136,7 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
 
 
 
-            <motion.div className='fixed right-0 top-0 h-full flex flex-col w-[60%] bg-gray-100 rounded z-50 shadow p-2 cursor-grab' 
+            <motion.div className='fixed right-0 top-0 h-full flex flex-col justify-between  w-[60%] bg-gray-100 rounded z-50 shadow p-10 cursor-grab' 
 
             initial={{x:'100%'}} 
             animate={{x:0}} 
@@ -156,7 +161,7 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
               </div>
 
 
-              <nav>
+              < nav className='border-b border-t border-gray-300'>
                 <div className='mt-10'>
                   {menuItem?.map((item , i ) => (
                     <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex w-full my-8 p-2 rounded ${onClickItemMenu == item.href ? 'bg-violet-400 '  :''}`}>
@@ -173,7 +178,24 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
                     </button>
                   ))}
                 </div>
+
               </nav>
+
+
+                <div className='p-2 flex flex-col justify-center gap-10 border-b border-t border-gray-300'>
+
+                  <div className='text-zinc-400 flex gap-1 items-center w-full justify-between opacity-60 '>
+                    <span className=''><User2Icon className='w-8 h-8 p-1 rounded-full bg-violet-400 text-white shadow-md'/></span>
+                    <span className='text-md tracking-tighter font-bold'>name: {name}</span>
+                  </div>
+
+                         <div className='text-zinc-400 flex gap-1 items-center  w-full justify-between opacity-60 '>
+                    <span className=''><IoIosMedical className='w-8 h-8 p-1 rounded-full bg-violet-400 text-white shadow-md'/></span>
+                    <span className='text-md tracking-tighter font-bold'>role: {role}</span>
+                  </div>
+
+                </div>
+
 
             </motion.div>
             
