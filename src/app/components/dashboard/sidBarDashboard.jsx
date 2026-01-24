@@ -136,7 +136,7 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
 
 
 
-            <motion.div className='fixed right-0 top-0 h-full flex flex-col justify-between  w-[60%] bg-gray-100 rounded z-50 shadow p-10 cursor-grab' 
+            <motion.div className='fixed right-0 top-0 h-full flex flex-col justify-between  w-[60%] bg-gray-100 rounded z-50 shadow p-5 cursor-grab' 
 
             initial={{x:'100%'}} 
             animate={{x:0}} 
