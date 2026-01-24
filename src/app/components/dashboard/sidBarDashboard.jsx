@@ -94,6 +94,27 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
         <button className='z-50 fixed top-3 right-2 2xl:hidden p-1 bg-gray-600/80 shadow-md rounded text-white duration-500 '  onClick={() => setOpen(!open)}> {open ? <ArrowRight/> : <Menu/>}  </button>
 
         {
+          !open && (
+            
+            <motion.div className='w-5 h-full fixed bg-transparent right-0 top-0 z-40 cursor-grab' 
+            
+                        transition={{duration:0.5 , ease:'easeIn'}}
+                        drag='x'
+                        dragConstraints={{right:0 , left:0}}
+                        onDragEnd={((e , drag) => {
+
+                          if(drag.offset.x < -180) {
+                            setOpen(true)
+                          }
+
+                        })}
+
+
+            />
+          )
+        }
+
+        {
           open && (
             <>
 
@@ -138,15 +159,15 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
               <nav>
                 <div className='mt-10'>
                   {menuItem?.map((item , i ) => (
-                    <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex w-full my-6`}>
+                    <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex w-full my-8 p-2 rounded ${onClickItemMenu == item.href ? 'bg-violet-400 '  :''}`}>
                       <div className='flex justify-between items-center w-full'>
 
                         <div className='flex items-center text-zinc-400 gap-2 '>
-                          <span>{item.icon}</span>
-                          <span>{item.name}</span>
+                          <span className={`${onClickItemMenu == item.href ? 'text-white' : 'text-zinc-400'}`}>{item.icon}</span>
+                          <span className={`${onClickItemMenu == item.href ? 'text-white' : 'text-zinc-400'}`}>{item.name}</span>
                         </div>
 
-                        <span className='w-3 h-3 rounded-full bg-green-700 animate-pulse '/>
+                        <span className={`${onClickItemMenu == item.href ? 'w-3 h-3 rounded-full bg-green-700 animate-pulse' : ''}`}/>
 
                       </div>
                     </button>
