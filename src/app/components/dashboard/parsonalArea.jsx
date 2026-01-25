@@ -419,10 +419,10 @@ export default function ParsonalArea2({name}) {
   ]
 
   const lastsOrder = [
-    {id:'01' , date:'25.1.2026' ,itemName:'מחשב נייד אסוס' , price:'3800$' , status:'נמסר'}  ,
-    {id:'02' , date:'22.1.2026' ,itemName:'מקלדת מכנית' , price:'330$' , status:'נמסר'}  ,
-    {id:'03' , date:'21.1.2026' ,itemName:'מסך מחשב ' , price:'130$' , status:'בדרך'}  ,
-    {id:'04' , date:'20.1.2026' ,itemName:' כרטיס מסך ' , price:'30$' , status:'נמסר'}  
+    {id:'01' , date:'25.1.26' ,itemName:'מחשב נייד אסוס' , price:'3800$' , status:'נמסר'}  ,
+    {id:'02' , date:'22.1.26' ,itemName:'מקלדת מכנית' , price:'330$' , status:'נמסר'}  ,
+    {id:'03' , date:'21.1.26' ,itemName:'מסך מחשב ' , price:'130$' , status:'בדרך'}  ,
+    {id:'04' , date:'20.1.26' ,itemName:' כרטיס מסך ' , price:'30$' , status:'נמסר'}  
   ]
 
   return (
