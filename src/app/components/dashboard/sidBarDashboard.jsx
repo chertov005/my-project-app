@@ -38,7 +38,7 @@ export default function SidBarDashboard({name , role ,myLogOut}) {
 
 
  <>
-    <div className='bg-[#424242] h-screen w-72 rounded-md p-4 2xl:xl:flex flex-col justify-around hidden' dir="rtl">
+    <div className='bg-[#424242] h-screen w-72 rounded-md p-4 2xl:xl:flex flex-col justify-around hidden ' dir="rtl">
 
       {/* מיכל עליון (70% גובה): מכיל את הכותרת ואת רשימת הניווט */}
       <div className="w-full h-[70%] bg-[#242424] rounded-xl flex flex-col overflow-hidden shadow-lg">
