@@ -478,7 +478,6 @@ export default function ParsonalArea2({name}) {
 
 
         <div className='p-4 rounded-xl  shadow-md min-h-[400px] shadow-white/20 xl:w-[50%] flex flex-col bg-linear-to-br from-black to-violet-800/15 duration-500 hover:scale-100 hover:bg-linear-to-bl hover:from-black hover:to-violet-700/20 hover:duration-500 '>
-
         <div className='flex justify-between  p-4'>
 
           <div className='flex gap-2 items-center text-2xl tracking-tighter font-bold text-violet-400 opacity-65'>
@@ -513,13 +512,15 @@ export default function ParsonalArea2({name}) {
                 <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.itemName}</p>
                 <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.price}</p>
                 <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.status}</p>
-                <span className={`${activeLastOrder === item.id  ? 'w-3 h-3 rounded-full bg-violet-400 animate-spin absolute left-0 mt-1' : ''}`}/>
+                <span className={`${activeLastOrder === item.id  ? 'xl:w-3  xl:h-3 h-2 w-2  rounded-full bg-violet-400 animate-spin absolute left-0 mt-1' : ''}`}/>
               </div>
             ))}
           </div>
-
-
         </div>
+
+
+
+
 
 
 
