@@ -439,16 +439,16 @@ export default function ParsonalArea2({name}) {
 
 
 
-      <div className='mt-20 flex flex-col gap-4'>
+      <div className='mt-20 flex flex-col gap-4 '>
 
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2 items-center justify-center xl:justify-start'>
           <span><BookDashed/></span>
         <h4 className='text-white tracking-tighter font-bold text-2xl border-r p-2'>לוח בקרה אישי והעדפות אישיות</h4>
         </div>
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 items-center xl:items-start'>
           <h1 className='text-violet-400 tracking-tighter font-extralight text-6xl'>ברוך הבא , {name}</h1>
-          <h2 className='text-sm font-bold tracking-widest w-[30%] text-shadow-2xs text-shadow-amber-100 '>מרכז השליטה שלך פעיל. המערכת מנותחת ומותאמת אישית לביצועים המקסימליים שלך היום.</h2>
+          <h2 className='text-sm font-bold tracking-widest w-[60%] text-shadow-2xs text-shadow-amber-100 '>מרכז השליטה שלך פעיל. המערכת מנותחת ומותאמת אישית לביצועים המקסימליים שלך היום.</h2>
         </div>
 
       </div>
