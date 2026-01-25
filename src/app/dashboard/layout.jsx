@@ -24,7 +24,7 @@ export  default async function layoutDashboard({children}) {
 
       <div className='flex w-full  h-full '>
 
-        <div className='w-[15%] h-full'>
+        <div className='w-[15%] h-full '>
           <SidBarDashboard name={name } role={role} myLogOut={logOutUser}/>
         </div>
 
