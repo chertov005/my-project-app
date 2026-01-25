@@ -476,7 +476,7 @@ export default function ParsonalArea2({name}) {
       <div className='mt-20'>
 
 
-        <div className='p-4 rounded-xl  shadow-xs shadow-gray-600 h-[400px]  xl:w-[50%] flex flex-col bg-linear-to-br from-black to-violet-800/15 duration-500 hover:scale-100 hover:bg-linear-to-bl hover:from-black hover:to-violet-700/20 hover:duration-500 '>
+        <div className='p-4 rounded-xl  shadow-md min-h-[400px] shadow-white/20 xl:w-[50%] flex flex-col bg-linear-to-br from-black to-violet-800/15 duration-500 hover:scale-100 hover:bg-linear-to-bl hover:from-black hover:to-violet-700/20 hover:duration-500 '>
 
         <div className='flex justify-between  p-4'>
 
@@ -494,7 +494,7 @@ export default function ParsonalArea2({name}) {
 
 
 
-          <div  className='grid grid-cols-5'>
+          <div  className='grid grid-cols-5 mt-10'>
             <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'>מספר הזמנה</p>
             <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> תאריך הזמנה</p>
             <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> שם המוצר</p>
@@ -503,6 +503,18 @@ export default function ParsonalArea2({name}) {
           </div>
 
           <hr className='my-2' />
+
+          <div className='w-full h-ful '>
+            {lastsOrder?.map((item , i) => (
+              <div key={i} className='grid grid-cols-5 my-4 text-zinc-400 hover:bg-white/10 duration-300 rounded p-1 cursor-pointer'>
+                <p>{item.id}</p>
+                <p>{item.date}</p>
+                <p>{item.itemName}</p>
+                <p>{item.price}</p>
+                <p>{item.status}</p>
+              </div>
+            ))}
+          </div>
 
 
         </div>
