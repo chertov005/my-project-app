@@ -447,7 +447,7 @@ export default function ParsonalArea2({name}) {
         </div>
 
         <div className='flex flex-col gap-4 items-center xl:items-start'>
-          <h1 className='text-violet-400 tracking-tighter font-extralight text-2xl xl:text-6xl'>ברוך הבא , {name}</h1>
+          <h1 className='text-violet-400 tracking-tighter font-extralight text-4xl xl:text-6xl'>ברוך הבא , {name}</h1>
           <h2 className='text-sm font-bold tracking-widest w-[60%] text-shadow-2xs text-shadow-amber-100 '>מרכז השליטה שלך פעיל. המערכת מנותחת ומותאמת אישית לביצועים המקסימליים שלך היום.</h2>
         </div>
 
