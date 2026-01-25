@@ -405,6 +405,7 @@ import { motion } from 'framer-motion';
 export default function ParsonalArea2({name}) {
 
   const[active , setActive] = useState('1')
+  const[activeLastOrder , setActiveLastOrder] = useState('01')
 
 
 
@@ -504,14 +505,15 @@ export default function ParsonalArea2({name}) {
 
           <hr className='my-2' />
 
-          <div className='w-full h-ful '>
+          <div className='w-full h-ful relative '>
             {lastsOrder?.map((item , i) => (
-              <div key={i} className='grid grid-cols-5 my-4 text-zinc-400 hover:bg-white/10 duration-300 rounded p-1 cursor-pointer'>
-                <p>{item.id}</p>
-                <p>{item.date}</p>
-                <p>{item.itemName}</p>
-                <p>{item.price}</p>
-                <p>{item.status}</p>
+              <div key={i} onClick={() => setActiveLastOrder(item.id)}  className=' grid border-b grid-cols-5 my-4 text-zinc-400 hover:bg-white/10 duration-300 rounded p-1 cursor-pointer'>
+                <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.id}</p>
+                <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.date}</p>
+                <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.itemName}</p>
+                <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.price}</p>
+                <p className='text-xs xl:text-[12pt]  font-extrabold'>{item.status}</p>
+                <span className={`${activeLastOrder === item.id  ? 'w-3 h-3 rounded-full bg-violet-400 animate-spin absolute left-0 mt-1' : ''}`}/>
               </div>
             ))}
           </div>
