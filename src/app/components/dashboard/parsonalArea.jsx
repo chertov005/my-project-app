@@ -393,16 +393,19 @@
 'use client'
 
 import React, { useState } from 'react'
+import { motion } from 'framer-motion';
 
  import {    Heart,    ShoppingBag,    User,    Plus,    MapPin, 
   FileText,    Zap,    Sparkles,
-  CheckCircle2,   Package,   Edit3,   Trash2,   Bell,   LayoutDashboard,   Clock,   ExternalLink,   ChevronLeft,   PlusCircle,  
+  CheckCircle2,   Package,   Edit3,   Trash2,   Bell,   LayoutDashboard,   Clock,   ExternalLink,   ChevronLeft,   PlusCircle,  Settings2Icon ,
   BookDashed} from "lucide-react";
 
 
 export default function ParsonalArea2({name}) {
 
   const[active , setActive] = useState('1')
+  const [onSettings , setOnsettings] = useState(false)
+
 
   const navTabLinks = [
 
@@ -436,10 +439,18 @@ export default function ParsonalArea2({name}) {
 
       </div>
 
+      {
+        active === '1'  && (
+
+          <motion.div 
+          initial={{opacity:0 , y:20}}
+          animate={{opacity:1 , y:0}}
+          exit={{opacity:0}}
+          transition={{duration:0.9, ease:'easeIn'}}
+          >
 
 
-
-      <div className='mt-20 flex flex-col gap-4 '>
+                <div className='mt-20 flex flex-col gap-4 '>
 
         <div className='flex gap-2 items-center justify-center xl:justify-start'>
           <span><BookDashed/></span>
@@ -452,6 +463,12 @@ export default function ParsonalArea2({name}) {
         </div>
 
       </div>
+
+      </ motion.div>
+        )
+      }
+
+    
       
     </div>
   )
