@@ -398,13 +398,14 @@ import { motion } from 'framer-motion';
  import {    Heart,    ShoppingBag,    User,    Plus,    MapPin, 
   FileText,    Zap,    Sparkles,
   CheckCircle2,   Package,   Edit3,   Trash2,   Bell,   LayoutDashboard,   Clock,   ExternalLink,   ChevronLeft,   PlusCircle,  Settings2Icon ,
-  BookDashed} from "lucide-react";
+  BookDashed,
+  View} from "lucide-react";
 
 
 export default function ParsonalArea2({name}) {
 
   const[active , setActive] = useState('1')
-  const [onSettings , setOnsettings] = useState(false)
+
 
 
   const navTabLinks = [
@@ -416,8 +417,15 @@ export default function ParsonalArea2({name}) {
 
   ]
 
+  const lastsOrder = [
+    {id:'01' , date:'25.1.2026' ,itemName:'מחשב נייד אסוס' , price:'3800$' , status:'נמסר'}  ,
+    {id:'02' , date:'22.1.2026' ,itemName:'מקלדת מכנית' , price:'330$' , status:'נמסר'}  ,
+    {id:'03' , date:'21.1.2026' ,itemName:'מסך מחשב ' , price:'130$' , status:'בדרך'}  ,
+    {id:'04' , date:'20.1.2026' ,itemName:' כרטיס מסך ' , price:'30$' , status:'נמסר'}  
+  ]
+
   return (
-    <div className='min-h-screen bg-linear-to-tr from-black to-violet-800/30 w-full  flex flex-col pt-16 p-6' dir='rtl'>
+    <div className='h-screen bg-linear-to-tr from-black to-violet-800/30 w-full overflow-auto flex flex-col pt-16 p-6' dir='rtl'>
 
       <div className='flex justify-between w-full'>
 
@@ -442,7 +450,7 @@ export default function ParsonalArea2({name}) {
       {
         active === '1'  && (
 
-          <motion.div 
+          <motion.div  className='w-full h-full'
           initial={{opacity:0 , y:20}}
           animate={{opacity:1 , y:0}}
           exit={{opacity:0}}
@@ -463,6 +471,48 @@ export default function ParsonalArea2({name}) {
         </div>
 
       </div>
+
+
+      <div className='mt-20'>
+
+
+        <div className='p-4 rounded-xl  shadow-xs shadow-gray-600 h-[400px]  xl:w-[50%] flex flex-col bg-linear-to-br from-black to-violet-800/15 duration-500 hover:scale-100 hover:bg-linear-to-bl hover:from-black hover:to-violet-700/20 hover:duration-500 '>
+
+        <div className='flex justify-between  p-4'>
+
+          <div className='flex gap-2 items-center text-2xl tracking-tighter font-bold text-violet-400 opacity-65'>
+            <span><Clock/></span>
+            <p>נרכשו לאחרונה</p>
+          </div>
+
+          <div className='flex gap-2 items-center text-xs text-zinc-400 font-bold tracking-wider '>
+          <span ><View className='size-4'/></span>
+          <p>כל ההזמנות</p>
+          </div>
+
+        </div>
+
+
+
+          <div  className='grid grid-cols-5'>
+            <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'>מספר הזמנה</p>
+            <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> תאריך הזמנה</p>
+            <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> שם המוצר</p>
+            <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> מחיר</p>
+            <p className='text-xs font-bold tracking-widest text-zinc-400 opacity-80'> סטטסוס</p>
+          </div>
+
+          <hr className='my-2' />
+
+
+        </div>
+
+
+
+      </div>
+
+
+
 
       </ motion.div>
         )
