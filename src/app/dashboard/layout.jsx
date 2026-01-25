@@ -20,15 +20,15 @@ export  default async function layoutDashboard({children}) {
   }
 
   return (
-    <div dir='rtl' className=' h-screen w-full bg-black text-white ' >
+    <div dir='rtl' className=' h-screen w-full bg-black text-white  ' >
 
       <div className='flex w-full  h-full '>
 
-        <div className='w-[15%] h-full '>
+        <div className='xl:w-[15%] h-full w-[1%] '>
           <SidBarDashboard name={name } role={role} myLogOut={logOutUser}/>
         </div>
 
-        <main className='w-[85%] h-full '> 
+        <main className='w-[97%] h-full '> 
           {children}
         </main>
 

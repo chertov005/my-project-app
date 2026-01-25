@@ -396,7 +396,8 @@ import React, { useState } from 'react'
 
  import {    Heart,    ShoppingBag,    User,    Plus,    MapPin, 
   FileText,    Zap,    Sparkles,
-  CheckCircle2,   Package,   Edit3,   Trash2,   Bell,   LayoutDashboard,   Clock,   ExternalLink,   ChevronLeft,   PlusCircle  } from "lucide-react";
+  CheckCircle2,   Package,   Edit3,   Trash2,   Bell,   LayoutDashboard,   Clock,   ExternalLink,   ChevronLeft,   PlusCircle,  
+  BookDashed} from "lucide-react";
 
 
 export default function ParsonalArea2({name}) {
@@ -413,24 +414,41 @@ export default function ParsonalArea2({name}) {
   ]
 
   return (
-    <div className='min-h-screen bg-linear-to-tr from-black to-violet-800/30 w-full p-4 ' dir='rtl'>
+    <div className='min-h-screen bg-linear-to-tr from-black to-violet-800/30 w-full  flex flex-col pt-16 p-6' dir='rtl'>
 
       <div className='flex justify-between w-full'>
 
         <div className='flex flex-col gap-1'>
-          <p className='flex items-center gap-2 tracking-widest font-bold text-xs'>החשבון שלי. הביצועים שלך  <span className=' text-violet-400'><Sparkles className='size-4'/> </span></p>
+          <p className='flex items-center gap-2 tracking-widest font-bold text-xs xl:border-b '>החשבון שלי. הביצועים שלך  <span className=' text-violet-400'><Sparkles className='size-4'/> </span></p>
           <p className='text-3xl tracking-tighter font-bold text-shadow-2xs text-shadow-violet-100 p-2'>האזור האישי {name}</p>
         </div>
 
-        <div className='grid grid-cols-1 2xl:grid-cols-4 gap-x-8 bg-white/20 px-4 rounded-xl' >
+        <div className='grid grid-cols-1 2xl:grid-cols-4 gap-x-8 bg-white/20 px-4 rounded-xl'  >
           {navTabLinks?.map((item , i) => (
-            <button onClick={() => setActive(item.id)} key={i} className={`w-full  gap-1 items-center p-1 border-r px-2  my-4 rounded text-zinc-400 duration-300 transition-all ${active === item.id ? 'bg-violet-400'  : 'ho'}`}>
+            <button onClick={() => setActive(item.id)} key={i} className={`w-full  gap-1 items-center p-1 border-r px-2  my-4 rounded text-zinc-400 duration-300 transition-all ${active === item.id ? 'bg-violet-400'  : 'hover:bg-white/5 duration-300'}`}>
               <div className='flex items-center gap-1 text-[10pt] font-bold tracking-widest '>
                 <span className={`${active == item.id ? 'bg-white' : ''}`}>{item.icon}</span>
                 <span className={`${active == item.id ? 'text-white' : 'text-zinc-400'}`}> {item.name}</span>
               </div>
             </button>
           ))}
+        </div>
+
+      </div>
+
+
+
+
+      <div className='mt-20 flex flex-col gap-4'>
+
+        <div className='flex gap-2 items-center'>
+          <span><BookDashed/></span>
+        <h4 className='text-white tracking-tighter font-bold text-2xl border-r p-2'>לוח בקרה אישי והעדפות אישיות</h4>
+        </div>
+
+        <div className='flex flex-col gap-4'>
+          <h1 className='text-violet-400 tracking-tighter font-extralight text-6xl'>ברוך הבא , {name}</h1>
+          <h2 className='text-sm font-bold tracking-widest w-[30%] text-shadow-2xs text-shadow-amber-100 '>מרכז השליטה שלך פעיל. המערכת מנותחת ומותאמת אישית לביצועים המקסימליים שלך היום.</h2>
         </div>
 
       </div>
