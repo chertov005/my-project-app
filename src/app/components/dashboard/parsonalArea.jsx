@@ -422,7 +422,7 @@ export default function ParsonalArea2({name}) {
           <p className='text-3xl tracking-tighter font-bold text-shadow-2xs text-shadow-violet-100 p-2'>האזור האישי {name}</p>
         </div>
 
-        <div className='grid grid-cols-4 gap-x-8 bg-white/20 px-4 rounded-xl'>
+        <div className='grid grid-cols-1 2xl:grid-cols-4 gap-x-8 bg-white/20 px-4 rounded-xl'>
           {navTabLinks?.map((item , i) => (
             <button onClick={() => setActive(item.id)} key={i} className={`w-full  gap-1 items-center p-1 border-r px-2  my-4 rounded text-zinc-400 duration-300 transition-all ${active === item.id ? 'bg-violet-400'  : 'ho'}`}>
               <div className='flex items-center gap-1 text-[10pt] font-bold tracking-widest '>
