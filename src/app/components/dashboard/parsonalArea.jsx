@@ -21,7 +21,9 @@ import { motion } from 'framer-motion';
   View,
   Gift,
   X,
-  GemIcon} from "lucide-react";
+  GemIcon,
+  File,
+  Edit} from "lucide-react";
 
 
 export default function ParsonalArea2({name}) {
@@ -308,6 +310,102 @@ export default function ParsonalArea2({name}) {
 
 
       </ motion.div>
+        )
+      }
+
+
+
+
+
+
+
+      {
+
+        active == '2' && (
+
+          <motion.div className='flex flex-col w-full' 
+           initial={{opacity:0 , y:20}}
+          animate={{opacity:1 , y:0}}
+          exit={{opacity:0}}
+          transition={{duration:0.9, ease:'easeIn'}}
+
+          >
+
+            <div className='p-4 flex flex-col mt-20 gap-4'>
+              <p className='font-extrabold tracking-widest text-zinc-400 opacity-80'>כל מה שפרסמתי במקום אחד</p>
+
+              <div  className='flex items-end gap-6 border-l border-r px-4 bg-white/5 py-2 rounded xl:w-[20%]'>
+              <span className=''><File className='size-16 border p-3 shadow-md shadow-white/20 rounded-full  bg-fuchsia-300'/></span>
+              <p className='text-4xl tracking-tighter font-bold text-violet-400 text-shadow-2xs text-shadow-yellow-400 opacity-80'>הפוסטים שלי</p>
+              </div>
+
+            </div>
+
+            
+
+          </motion.div>
+        )
+      }
+
+
+
+
+
+
+          {
+        active == '3' && (
+
+          <motion.div className='flex flex-col w-full' 
+           initial={{opacity:0 , y:20}}
+          animate={{opacity:1 , y:0}}
+          exit={{opacity:0}}
+          transition={{duration:0.9, ease:'easeIn'}}
+
+          >
+
+            <div className='p-4 flex flex-col mt-20'>
+
+              <div  className='flex items-end gap-6 border-l border-r px-4 bg-white/5 py-2 rounded xl:w-[30%]'>
+              <span className=''><Edit className='size-16 border p-3 shadow-md shadow-white/20 rounded-full  bg-cyan-600'/></span>
+              <p className='text-4xl tracking-tighter font-bold text--400 text-shadow-2xs text-shadow-yellow-400 opacity-80'>יצירת פוסט חדש</p>
+              </div>
+            </div>
+
+
+          </motion.div>
+        )
+      }
+
+
+
+
+
+
+
+      
+          {
+        active == '4' && (
+
+          
+
+          <motion.div className='flex flex-col w-full' 
+           initial={{opacity:0 , y:20}}
+          animate={{opacity:1 , y:0}}
+          exit={{opacity:0}}
+          transition={{duration:0.9, ease:'easeIn'}}
+
+          >
+
+            <div className='p-4 flex flex-col mt-20'>
+
+              <div  className='flex items-end gap-6 border-l border-r px-4 bg-white/5 py-2 rounded xl:w-[40%]'>
+              <span className=''><Edit className='size-16 border p-3 shadow-md shadow-white/20 rounded-full  bg-emerald-500'/></span>
+              <p className='text-4xl tracking-tighter font-bold text--400 text-shadow-2xs text-shadow-yellow-400 opacity-80'>פרופיל המשתמש שלי {name}</p>
+              </div>
+            </div>
+
+
+          </motion.div>
         )
       }
 
