@@ -14,6 +14,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 
+
 import {
   Heart, ShoppingBag, User, Plus, MapPin,
   FileText, Zap, Sparkles,
@@ -24,14 +25,44 @@ import {
   X,
   GemIcon,
   File,
-  Edit
+  Loader,
+  Edit,
+  TextInitialIcon
 } from "lucide-react";
+import { useForm } from 'react-hook-form';
+
 
 
 export default function ParsonalArea2({ name }) {
 
   const [active, setActive] = useState('1')
   const [activeLastOrder, setActiveLastOrder] = useState('01')
+
+  const { register, formState: { errors }, handleSubmit ,reset } = useForm()
+  const [loading, setLoading] = useState(false)
+  const [itSent , setItsSents] =useState(false)
+
+  const doForm = async (_data) => {
+
+    setLoading(true)
+
+    setTimeout(() => {
+
+
+      setLoading(false)
+      setItsSents(true)
+
+      console.log(_data)
+
+      setTimeout(() => {
+        reset()
+        setItsSents(false)
+
+      } ,2000)
+
+    } ,2000)
+
+  }
 
 
 
@@ -358,25 +389,25 @@ export default function ParsonalArea2({ name }) {
               <div className='mt-10 grid xl:grid-cols-2 gap-10 '>
 
                 {myPost?.map((item, i) => (
-                  <div key={i} className={`flex flex-col items-center gap-4 p-10 shadow-xl shadow-white/5 duration-500 transition-all hover:border-t my-4 rounded-md hover:scale-100   ${i % 2 == 0  ? 'bg-linear-to-tr from-black to-cyan-800/50 hover:bg-linear-to-tl hover:from-black hover:to-cyan-600/50  '  : 'bg-linear-to-tr from-black to-teal-700/50 hover:bg-linear-to-tl  hover:from-black hover:to-teal-500/50 '}`}>
+                  <div key={i} className={`flex flex-col items-center gap-4 p-10 shadow-xl shadow-white/5 duration-500 transition-all hover:border-t my-4 rounded-md hover:scale-100   ${i % 2 == 0 ? 'bg-linear-to-tr from-black to-cyan-800/50 hover:bg-linear-to-tl hover:from-black hover:to-cyan-600/50  ' : 'bg-linear-to-tr from-black to-teal-700/50 hover:bg-linear-to-tl  hover:from-black hover:to-teal-500/50 '}`}>
 
                     <div className='w-full flex justify-between items-center '>
                       <span className='cursor-pointer active:scale-95 '>{<FileText className='size-8 text-violet-500 shadow' />} </span>
 
-                      <div className='flex items-center gap-2 '>
+                      <div className='flex items-center gap-10 '>
                         <span className='cursor-pointer active:scale-95'><Edit className='size-4' /></span>
                         <span className='cursor-pointer active:scale-95'><Trash2 className='size-4' /></span>
                       </div>
                     </div>
 
-                      <p className='text-zinc-400 tracking-widest text-xs border-b'>{item.title}</p>
+                    <p className='text-zinc-400 tracking-widest text-xs border-b'>{item.title}</p>
 
-                      <p className='text-zinc-400 tracking-widest '>{item.content}</p>
+                    <p className='text-zinc-400 tracking-widest '>{item.content}</p>
 
-                      <div className='flex justify-between w-full'>
-                        <p>{item.date}</p>
-                        <span><Heart className='text-red-600 hover:fill-red-600 duration-500'/></span>
-                      </div>
+                    <div className='flex justify-between w-full'>
+                      <p>{item.date}</p>
+                      <span><Heart className='text-red-600 hover:fill-red-600 duration-500' /></span>
+                    </div>
 
 
 
@@ -415,6 +446,73 @@ export default function ParsonalArea2({ name }) {
                 <span className=''><Edit className='size-16 border p-3 shadow-md shadow-white/20 rounded-full  bg-cyan-600' /></span>
                 <p className='text-4xl tracking-tighter font-bold text--400 text-shadow-2xs text-shadow-yellow-400 opacity-80'>יצירת פוסט חדש</p>
               </div>
+
+              <div className='flex flex-col justify-center w-full h-full mt-20 items-center p-10'>
+
+                <form onSubmit={handleSubmit(doForm)} className='flex flex-col justify-between xl:w-[60%] xl:h-[50vh] w-full h-full font-bold p-2 rounded-xl shadow-md hover:border-t duration-300 transition-all shadow-white/20 hover:scale-100 bg-linear-to-tr from-black to-cyan-700/40   hover:bg-linear-to-tl hover:from-black hoverLto-cyan-800/40 hover:duration-500 hover:scale-105 '>
+
+                {
+                  itSent ?
+
+                  <div className='flex flex-col items-center justify-center gap-4 text-zinc-400 p-4 '>
+
+                    <p className='text-4xl flex items-center gap-2 tracking-widest font-bold'>הפוסט פורסם בהצלחה <TextInitialIcon className='size-8'/> </p>
+                    <p></p>
+
+                  </div>
+
+                  :
+
+                  <div>
+
+                        <div className='flex flex-col items-start p-2 '>
+                    <label className='text-xl p-2 text-zinc-400 opacity-80'>כותרת</label>
+                    <input  {...register('title', { min: 5, max: 60, required: true })} type='text' className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' placeholder='הכותרת של הפוסט' />
+                    {errors.title && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 5 תווים מקס 99</span>)}
+                  </div>
+
+
+                  <div className='mt-4 p-2 flex flex-col items-start'>
+                    <label className='text-xl p-2 text-zinc-400 opacity-80'>תוכן הפוסט</label>
+
+                    <textarea {...register('content', { min: 10, max: 999, required: true })} className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' rows={6} cols={4} placeholder='יש לרשום את תוכן הפוסט '>
+
+                    </textarea>
+                    {errors.content && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 10 תווים  99</span>)}
+
+                  </div>
+
+                  <div className='mt-4 flex flex-col items-center p-2'>
+
+                    <button className='w-full shadow sahdow-md p-2 bg-violet-400 text-white  rounded-md shadow-white/30 active:scale-90 duration-300 hover:bg-violet-700' type='submit'>
+
+                      {loading
+
+                        ?
+                        <div>
+                          <span className='flex items-center justify-center gap-2'><Loader className='animate-spin duration-300' /> אנא המתן...</span>
+                        </div>
+ 
+                        :
+                        <div>
+                          <span>פרסום פוסט</span>
+                        </div>
+
+                      }
+
+                    </button>
+
+                  </div>
+
+                  </div>
+                }
+
+                </form>
+
+                <div />
+
+              </div>
+
             </div>
 
 
