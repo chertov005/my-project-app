@@ -11,8 +11,9 @@
 
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion';
+
 
 
 import {
@@ -30,10 +31,12 @@ import {
   TextInitialIcon
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 
 
 export default function ParsonalArea2({ name }) {
+
 
   const [active, setActive] = useState('1')
   const [activeLastOrder, setActiveLastOrder] = useState('01')
@@ -42,27 +45,55 @@ export default function ParsonalArea2({ name }) {
   const [loading, setLoading] = useState(false)
   const [itSent , setItsSents] =useState(false)
 
+  const [arrPost, setArryPost] = useState([])
+
+
+
   const doForm = async (_data) => {
 
+  try {
     setLoading(true)
 
-    setTimeout(() => {
+    const resp = await axios.post('/api/posts', _data)
 
-
-      setLoading(false)
+    if (resp.status === 201) {
       setItsSents(true)
-
       console.log(_data)
 
       setTimeout(() => {
         reset()
         setItsSents(false)
+      }, 2000)
+    }
 
-      } ,2000)
-
-    } ,2000)
-
+  } catch (error) {
+    console.error(error)
+    alert('שליחת הטופס נכשלה')
+  } finally {
+    setLoading(false)
   }
+}
+
+
+  const doApiPost = async () => {
+    try {
+      const url = `/api/posts`
+      const resp = await axios.get(url)
+      if (resp.status === 200) {
+        // בדיקה שמה שחוזר הוא אכן מערך, אם לא - הפיכה למערך
+        setArryPost(resp.data.data)
+        console.log(resp.data.data)
+      }
+    } catch (error) {
+      console.log('שגיאת שרת בקבלת פוסטים')
+      setArryPost([]) // איפוס במקרה שגיאה
+    }
+  }
+
+
+  useEffect(() => {
+    doApiPost()
+  }, [])
 
 
 
@@ -388,7 +419,7 @@ export default function ParsonalArea2({ name }) {
 
               <div className='mt-10 grid xl:grid-cols-2 gap-10 '>
 
-                {myPost?.map((item, i) => (
+                {arrPost?.map((item, i) => (
                   <div key={i} className={`flex flex-col items-center gap-4 p-10 shadow-xl shadow-white/5 duration-500 transition-all hover:border-t my-4 rounded-md hover:scale-100   ${i % 2 == 0 ? 'bg-linear-to-tr from-black to-cyan-800/50 hover:bg-linear-to-tl hover:from-black hover:to-cyan-600/50  ' : 'bg-linear-to-tr from-black to-teal-700/50 hover:bg-linear-to-tl  hover:from-black hover:to-teal-500/50 '}`}>
 
                     <div className='w-full flex justify-between items-center '>
@@ -404,9 +435,10 @@ export default function ParsonalArea2({ name }) {
 
                     <p className='text-zinc-400 tracking-widest '>{item.content}</p>
 
-                    <div className='flex justify-between w-full'>
-                      <p>{item.date}</p>
+                    <div className=' grid xl:grid-cols-3  items-center w-full pt-20 gap-2 '>
                       <span><Heart className='text-red-600 hover:fill-red-600 duration-500' /></span>
+                      <span className='flex items-center flex- gap-2'><User className='text-violet-200 rounded-full p-1 bg-violet-400 shadow  hover:fill-violet-100 duration-500' /> <span>  {item.author.name}   </span> </span>
+                      <p>{item.createdAt}</p>
                     </div>
 
 
