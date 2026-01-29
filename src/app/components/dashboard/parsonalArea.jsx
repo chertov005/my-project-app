@@ -38,24 +38,24 @@ import {
   DollarSign,
   AlertTriangleIcon,
   LocationEdit,
-  LockKeyholeIcon ,
-  ShoppingCart 
-  
+  LockKeyholeIcon,
+  ShoppingCart
+
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 
 
-export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) {
+export default function ParsonalArea2({ name, role, email, createdAt, logOut }) {
 
 
   const [active, setActive] = useState('1')
   const [activeLastOrder, setActiveLastOrder] = useState('01')
 
-  const { register, formState: { errors }, handleSubmit ,reset } = useForm()
+  const { register, formState: { errors }, handleSubmit, reset } = useForm()
   const [loading, setLoading] = useState(false)
-  const [itSent , setItsSents] =useState(false)
+  const [itSent, setItsSents] = useState(false)
 
   const [arrPost, setArryPost] = useState([])
 
@@ -63,28 +63,28 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
   const doForm = async (_data) => {
 
-  try {
-    setLoading(true)
+    try {
+      setLoading(true)
 
-    const resp = await axios.post('/api/posts', _data)
+      const resp = await axios.post('/api/posts', _data)
 
-    if (resp.status === 201) {
-      setItsSents(true)
-      console.log(_data)
+      if (resp.status === 201) {
+        setItsSents(true)
+        console.log(_data)
 
-      setTimeout(() => {
-        reset()
-        setItsSents(false)
-      }, 2000)
+        setTimeout(() => {
+          reset()
+          setItsSents(false)
+        }, 2000)
+      }
+
+    } catch (error) {
+      console.error(error)
+      alert('שליחת הטופס נכשלה')
+    } finally {
+      setLoading(false)
     }
-
-  } catch (error) {
-    console.error(error)
-    alert('שליחת הטופס נכשלה')
-  } finally {
-    setLoading(false)
   }
-}
 
 
   const doApiPost = async () => {
@@ -115,7 +115,7 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
     { id: '2', name: 'הפוסטים שלי', harf: '/posts', icon: <FileText className='size-5' /> },
     { id: '3', name: 'יצירת פוסט', harf: '/edit', icon: <Edit3 className='size-5' /> },
     { id: '4', name: 'פרופיל משתמש', harf: '/profile', icon: <User className='size-5' /> },
-    { id: '5', name: 'סל קניות', harf: '/buy', icon: <ShoppingCart  className='size-5' /> }
+    { id: '5', name: 'סל קניות', harf: '/buy', icon: <ShoppingCart className='size-5' /> }
 
   ]
 
@@ -151,10 +151,10 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
   const profileAccount = [
 
-    {name:'אמצעי תשלום'  , desc:'עדכון אמעצי תשלום'  , icon: <DollarSign className='text-cyan-600'/> } ,
-    {name:'התראות'  , desc:'ניהול התראות'  , icon: <AlertTriangleIcon className='text-violet-500'/> } ,
-    {name:'כתובת'  , desc:' שינוי כתובת'  , icon: <LocationEdit className='text-red-600'/> } ,
-    {name:'אבטחת חשבון'  , desc:' ניהול סיסמאות ואבטחה דו שלבית'  , icon: <LockKeyholeIcon className='text-emerald-800'/> } ,
+    { name: 'אמצעי תשלום', desc: 'עדכון אמעצי תשלום', icon: <DollarSign className='text-cyan-600' /> },
+    { name: 'התראות', desc: 'ניהול התראות', icon: <AlertTriangleIcon className='text-violet-500' /> },
+    { name: 'כתובת', desc: ' שינוי כתובת', icon: <LocationEdit className='text-red-600' /> },
+    { name: 'אבטחת חשבון', desc: ' ניהול סיסמאות ואבטחה דו שלבית', icon: <LockKeyholeIcon className='text-emerald-800' /> },
 
 
   ]
@@ -496,61 +496,61 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
                 <form onSubmit={handleSubmit(doForm)} className='flex flex-col justify-between xl:w-[60%] xl:h-[50vh] w-full h-full font-bold p-2 rounded-xl shadow-md hover:border-t duration-300 transition-all shadow-white/20 hover:scale-100 bg-linear-to-tr from-black to-cyan-700/40   hover:bg-linear-to-tl hover:from-black hoverLto-cyan-800/40 hover:duration-500 hover:scale-105 '>
 
-                {
-                  itSent ?
+                  {
+                    itSent ?
 
-                  <div className='flex flex-col items-center justify-center gap-4 text-zinc-400 p-4 '>
+                      <div className='flex flex-col items-center justify-center gap-4 text-zinc-400 p-4 '>
 
-                    <p className='text-4xl flex items-center gap-2 tracking-widest font-bold'>הפוסט פורסם בהצלחה <TextInitialIcon className='size-8'/> </p>
-                    <p></p>
+                        <p className='text-4xl flex items-center gap-2 tracking-widest font-bold'>הפוסט פורסם בהצלחה <TextInitialIcon className='size-8' /> </p>
+                        <p></p>
 
-                  </div>
+                      </div>
 
-                  :
+                      :
 
-                  <div>
+                      <div>
 
                         <div className='flex flex-col items-start p-2 '>
-                    <label className='text-xl p-2 text-zinc-400 opacity-80'>כותרת</label>
-                    <input  {...register('title', { min: 5, max: 60, required: true })} type='text' className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' placeholder='הכותרת של הפוסט' />
-                    {errors.title && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 5 תווים מקס 99</span>)}
-                  </div>
-
-
-                  <div className='mt-4 p-2 flex flex-col items-start'>
-                    <label className='text-xl p-2 text-zinc-400 opacity-80'>תוכן הפוסט</label>
-
-                    <textarea {...register('content', { min: 10, max: 999, required: true })} className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' rows={6} cols={4} placeholder='יש לרשום את תוכן הפוסט '>
-
-                    </textarea>
-                    {errors.content && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 10 תווים  99</span>)}
-
-                  </div>
-
-                  <div className='mt-4 flex flex-col items-center p-2'>
-
-                    <button className='w-full shadow sahdow-md p-2 bg-violet-400 text-white  rounded-md shadow-white/30 active:scale-90 duration-300 hover:bg-violet-700' type='submit'>
-
-                      {loading
-
-                        ?
-                        <div>
-                          <span className='flex items-center justify-center gap-2'><Loader className='animate-spin duration-300' /> אנא המתן...</span>
-                        </div>
- 
-                        :
-                        <div>
-                          <span>פרסום פוסט</span>
+                          <label className='text-xl p-2 text-zinc-400 opacity-80'>כותרת</label>
+                          <input  {...register('title', { min: 5, max: 60, required: true })} type='text' className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' placeholder='הכותרת של הפוסט' />
+                          {errors.title && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 5 תווים מקס 99</span>)}
                         </div>
 
-                      }
 
-                    </button>
+                        <div className='mt-4 p-2 flex flex-col items-start'>
+                          <label className='text-xl p-2 text-zinc-400 opacity-80'>תוכן הפוסט</label>
 
-                  </div>
+                          <textarea {...register('content', { min: 10, max: 999, required: true })} className='w-full p-1 rounded  bg-white/10 text-center outline-0 py-2 hover:bg-gray-200/20 duration-300 ' rows={6} cols={4} placeholder='יש לרשום את תוכן הפוסט '>
 
-                  </div>
-                }
+                          </textarea>
+                          {errors.content && (<span className='text-red-600 tracking-widest font-bold text-xs'>מינימום 10 תווים  99</span>)}
+
+                        </div>
+
+                        <div className='mt-4 flex flex-col items-center p-2'>
+
+                          <button className='w-full shadow sahdow-md p-2 bg-violet-400 text-white  rounded-md shadow-white/30 active:scale-90 duration-300 hover:bg-violet-700' type='submit'>
+
+                            {loading
+
+                              ?
+                              <div>
+                                <span className='flex items-center justify-center gap-2'><Loader className='animate-spin duration-300' /> אנא המתן...</span>
+                              </div>
+
+                              :
+                              <div>
+                                <span>פרסום פוסט</span>
+                              </div>
+
+                            }
+
+                          </button>
+
+                        </div>
+
+                      </div>
+                  }
 
                 </form>
 
@@ -593,19 +593,19 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
               </div>
             </div>
 
-            
+
             <div className='mt-10 flex flex-col xl:flex-row w-full justify-between items-center p-6 shadow-2xl shadow-white/10 rounded-2xl bg-linear-to-tr from-violet-950 to-black/10'  >
 
               <div className='flex flex-col xl:flex-row  items-end justify-center xl:gap-20'>
-                
+
                 <div className='p-4 rounded-xl shadow-md flex relative items-center justify-center shadow-white/25 bg-linear-to-tr h-[200px] w-[200px]  from-black to-emerald-700/35'>
-                  <span><User className='size-28 '/></span>
-                  <span className='absolute right-2 bottom-0 p-1 rounded-full bg-violet-400 active:scale-105'><Camera className=' hover:active:scale-110 duration-300'/></span>
+                  <span><User className='size-28 ' /></span>
+                  <span className='absolute right-2 bottom-0 p-1 rounded-full bg-violet-400 active:scale-105'><Camera className=' hover:active:scale-110 duration-300' /></span>
                 </div>
 
                 <div className='flex items-end gap-10 text-zinc-400 opacity-85 text-xs font-bold tracking-widest'>
-                  <span className='flex items-end gap-1'> <Shield className='fill-cyan-800'/> <p> {role} </p> </span>
-                  <span className='flex items-end gap-1'> <Timer/> <p> {createdAt} </p> </span>  
+                  <span className='flex items-end gap-1'> <Shield className='fill-cyan-800' /> <p> {role} </p> </span>
+                  <span className='flex items-end gap-1'> <Timer /> <p> {createdAt} </p> </span>
                 </div>
 
               </div>
@@ -616,93 +616,93 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
               <div className='flex items-center gap-5'>
                 <p className='font-bold -tracking-wider text-2xl border-l pl-2 text-shadow-2xs text-shadow-amber-500 '> יציאה מהמערכת</p>
-                <button onClick={() => logOut()} className='p-1 rounded-xl bg-violet-400 shadow-md shadow-white/30 active:scale-95 duration-300'><LogOut className='size-11'/>   </button>
+                <button onClick={() => logOut()} className='p-1 rounded-xl bg-violet-400 shadow-md shadow-white/30 active:scale-95 duration-300'><LogOut className='size-11' />   </button>
               </div>
 
             </div>
 
 
-            
+
             <div className=' w-[100%] xl:min:h-[50vh] rounded-xl  bg-linear-to-tr from-violet-950 to-black/10  mt-10 p-10 flex gap-4 flex-col xl:flex-row justify-between'>
 
 
-            <div className='h-full w-full xl:w-[70%] bg-white/5 rounded-4xl '>
+              <div className='h-full w-full xl:w-[70%] bg-white/5 rounded-4xl '>
 
-            <form className='w-full p-10'>
+                <form className='w-full p-10'>
 
-              <div className='flex items-start  gap-1'>
-                <span><Settings className='size-10 text-zinc-400'/></span>
-                <p className='text-zinc-400 tracking-widest font-bold text-2xl'>פרטים אישיים</p> 
-              </div>
+                  <div className='flex items-start  gap-1'>
+                    <span><Settings className='size-10 text-zinc-400' /></span>
+                    <p className='text-zinc-400 tracking-widest font-bold text-2xl'>פרטים אישיים</p>
+                  </div>
 
-                    <div className='mt-10 text-zinc-400 font-bold text-xl flex gap-2 w-full'>
-                <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>שם משתמש</label>
-                  <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
-                </div>
-
-                <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>אימייל</label>
-                  <input type='email' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
-                </div>
-              </div>
-
-              <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl text-[6pt]absolute bottom-0.5 right-4 hidden xl:block'> הרשאות משתמש </label>
-                  <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
-              </div>
-
-              
-              <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'> תאריך הצטרפות</label>
-                  <input type='text' className='text-center hover:scale-95 xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
-              </div>
-
-              <div className='mt-10'>
-                <button className='p-2 rounded bg-violet-400 w-full text-white active:scale-105 duration-300 '> שמירה</button>
-              </div>
-
-            </form>
-
-            </div>
-
-
-
-            <div className='h-full w-full xl:w-[29%] bg-white/5 rounded-4xl '>
-
-
-            
-              <div className='flex items-center p-4 justify-center gap-1'>
-                <span><Settings2/></span>
-                <p>הגדרות חשבון</p>
-              </div>
-
-              <div className='grid grid-cols-1 gap-10 p-10  '>
-                {profileAccount?.map((item , i) => (
-                  <div key={i} className='rounded-xl flex flex-col text-center items-center shadow-xl p-4 active:scale-95 duration-300 shadow-white/5  bg-linear-to-tr from-violet-900 to-black/15'> 
-
-                  <div className='flex gap-4 items-center w-full text-center '>
-
-                    <div>
-                      <p>{item.icon}</p>
+                  <div className='mt-10 text-zinc-400 font-bold text-xl flex gap-2 w-full'>
+                    <div className='flex flex-col items-start space-y-1 w-full relative'>
+                      <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>שם משתמש</label>
+                      <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
                     </div>
 
-                    <div className='flex flex-col ga-2 items-center text-center '>
-                      <p className='text-xs font-bold tracking-widest text-zinc-400'>{item.desc}</p>
-        
+                    <div className='flex flex-col items-start space-y-1 w-full relative'>
+                      <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>אימייל</label>
+                      <input type='email' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
                     </div>
+                  </div>
 
-
+                  <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
+                    <label className='xl:text-2xl text-[6pt]absolute bottom-0.5 right-4 hidden xl:block'> הרשאות משתמש </label>
+                    <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
                   </div>
 
 
+                  <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
+                    <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'> תאריך הצטרפות</label>
+                    <input type='text' className='text-center hover:scale-95 xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
                   </div>
-                ))}
-              </div>
-        
 
-            </div>
-            
+                  <div className='mt-10'>
+                    <button className='p-2 rounded bg-violet-400 w-full text-white active:scale-105 duration-300 '> שמירה</button>
+                  </div>
+
+                </form>
+
+              </div>
+
+
+
+              <div className='h-full w-full xl:w-[29%] bg-white/5 rounded-4xl '>
+
+
+
+                <div className='flex items-center p-4 justify-center gap-1'>
+                  <span><Settings2 /></span>
+                  <p>הגדרות חשבון</p>
+                </div>
+
+                <div className='grid grid-cols-1 gap-10 p-10  '>
+                  {profileAccount?.map((item, i) => (
+                    <div key={i} className='rounded-xl flex flex-col text-center items-center shadow-xl p-4 active:scale-95 duration-300 shadow-white/5  bg-linear-to-tr from-violet-900 to-black/15'>
+
+                      <div className='flex gap-4 items-center w-full text-center '>
+
+                        <div>
+                          <p>{item.icon}</p>
+                        </div>
+
+                        <div className='flex flex-col ga-2 items-center text-center '>
+                          <p className='text-xs font-bold tracking-widest text-zinc-400'>{item.desc}</p>
+
+                        </div>
+
+
+                      </div>
+
+
+                    </div>
+                  ))}
+                </div>
+
+
+              </div>
+
 
             </div>
 
@@ -717,24 +717,43 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
       {
 
         active === '5' && (
-          
-          <motion.div className='flex flex-col w-full'
-          
-                
+
+          <motion.div className='flex flex-col w-full h-full'
+
+
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: 'easeIn' }}
 
-          
+
           >
 
 
-            <div className='mt-20'> 
+            <div className='mt-20'>
 
-              <div>
-                
-                
+              <div className='flex items-center gap-4'>
+
+                <span className='p-4 rounded-full bg-violet-400'><ShoppingCart className='size-12' /></span>
+
+                <div className='flex flex-col items-start gap-2'>
+                  <p className='text-5xl font-bold tracking-wider'>סל הקניות שלי</p>
+                  <p className='text-xs font-bold tracking-widest text-red-600 opacity-80 border-b animate-pulse'> ממתינים לך 3 פריטים חדשים </p>
+                </div>
+
+              </div>
+
+
+              <div className='w-full h-[60vh]  mt-20 flex justify-between xl:w-[80%]  mx-auto '>
+
+              <div className='w-[70%] h-full p-4 bg-linear-to-tr  from-violet-950 to-black/70 rounded-xl shadow-xl shadow-white/10' > 
+
+              </div>
+
+
+              <div className='w-[28%] h-full  p-4 bg-linear-to-tr from-violet-950 via-violet-100/10 rounded-xl shadow-xl shadow-white/10'>
+
+              </div>
 
               </div>
 
