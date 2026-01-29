@@ -38,7 +38,9 @@ import {
   DollarSign,
   AlertTriangleIcon,
   LocationEdit,
-  LockKeyholeIcon
+  LockKeyholeIcon ,
+  ShoppingCart 
+  
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -113,7 +115,7 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
     { id: '2', name: 'הפוסטים שלי', harf: '/posts', icon: <FileText className='size-5' /> },
     { id: '3', name: 'יצירת פוסט', harf: '/edit', icon: <Edit3 className='size-5' /> },
     { id: '4', name: 'פרופיל משתמש', harf: '/profile', icon: <User className='size-5' /> },
-    { id: '5', name: 'סל קניות', harf: '/buy', icon: <ShoppingBag className='size-5' /> }
+    { id: '5', name: 'סל קניות', harf: '/buy', icon: <ShoppingCart  className='size-5' /> }
 
   ]
 
@@ -635,24 +637,24 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
                     <div className='mt-10 text-zinc-400 font-bold text-xl flex gap-2 w-full'>
                 <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'>שם משתמש</label>
+                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>שם משתמש</label>
                   <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
                 </div>
 
                 <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'>אימייל</label>
+                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'>אימייל</label>
                   <input type='email' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
                 </div>
               </div>
 
               <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl text-[6pt]absolute bottom-0.5 right-4'> הרשאות משתמש </label>
+                <label className='xl:text-2xl text-[6pt]absolute bottom-0.5 right-4 hidden xl:block'> הרשאות משתמש </label>
                   <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
               </div>
 
               
               <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'> תאריך הצטרפות</label>
+                <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4 hidden xl:block'> תאריך הצטרפות</label>
                   <input type='text' className='text-center hover:scale-95 xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
               </div>
 
@@ -707,6 +709,42 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
           </motion.div>
         )
+      }
+
+
+
+
+      {
+
+        active === '5' && (
+          
+          <motion.div className='flex flex-col w-full'
+          
+                
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: 'easeIn' }}
+
+          
+          >
+
+
+            <div className='mt-20'> 
+
+              <div>
+                
+                
+
+              </div>
+
+            </div>
+
+
+          </motion.div>
+
+        )
+
       }
 
 
