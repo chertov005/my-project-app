@@ -635,25 +635,25 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
                     <div className='mt-10 text-zinc-400 font-bold text-xl flex gap-2 w-full'>
                 <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl absolute bottom-0.5 right-4'>שם משתמש</label>
-                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
+                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'>שם משתמש</label>
+                  <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
                 </div>
 
                 <div className='flex flex-col items-start space-y-1 w-full relative'>
-                  <label className='xl:text-2xl absolute bottom-0.5 right-4'>אימייל</label>
-                  <input type='email' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
+                  <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'>אימייל</label>
+                  <input type='email' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
                 </div>
               </div>
 
               <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl absolute bottom-0.5 right-4'> הרשאות משתמש </label>
-                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
+                <label className='xl:text-2xl text-[6pt]absolute bottom-0.5 right-4'> הרשאות משתמש </label>
+                  <input type='text' className='text-center hover:scale-95  xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
               </div>
 
               
               <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
-                <label className='xl:text-2xl absolute bottom-0.5 right-4'> תאריך הצטרפות</label>
-                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
+                <label className='xl:text-2xl text-[6pt] absolute bottom-0.5 right-4'> תאריך הצטרפות</label>
+                  <input type='text' className='text-center hover:scale-95 xl:text-xl text-[6pt] w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
               </div>
 
               <div className='mt-10'>
