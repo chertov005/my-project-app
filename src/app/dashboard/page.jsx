@@ -1,6 +1,6 @@
 
 
-import { auth } from "@/auth";
+import { auth ,signOut } from "@/auth";
 import ParsonalArea2 from "../components/dashboard/parsonalArea";
 
 
@@ -8,11 +8,18 @@ import ParsonalArea2 from "../components/dashboard/parsonalArea";
 
 export default async function DashboardPage() {
 
+  const logOut  = async () => {
+
+    'use server'
+    await signOut({redirectTo:'/login'})
+
+  }
+
   
   
   const session = await auth();
   
-  const { email, id, name, role, image } = session?.user
+  const { email, id, name, role, image ,createdAt } = session?.user
   
 
   // אם ה-Middleware איכשהו פוספס, זה קו ההגנה השני
@@ -22,7 +29,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="" dir="rtl">
-      <ParsonalArea2 name={name}/>
+      <ParsonalArea2 name={name} role={role} email={email} createdAt={createdAt} logOut={logOut}/>
     </div>
   );
 }

@@ -28,14 +28,18 @@ import {
   File,
   Loader,
   Edit,
-  TextInitialIcon
+  TextInitialIcon,
+  Camera,
+  Shield,
+  Timer,
+  LogOut
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 
 
-export default function ParsonalArea2({ name }) {
+export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) {
 
 
   const [active, setActive] = useState('1')
@@ -138,16 +142,7 @@ export default function ParsonalArea2({ name }) {
   ]
 
 
-  const myPost = [
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-    { title: 'כותרת לדוגמה', content: 'תוכן הפוסט לדוגמה ניתן מעל 100 תוויים ', date: '2.2.2026' },
-  ]
+
 
   return (
     <div className='h-screen bg-linear-to-tr from-black to-violet-800/30 w-full overflow-auto flex flex-col pt-16 p-6' dir='rtl'>
@@ -578,6 +573,51 @@ export default function ParsonalArea2({ name }) {
                 <span className=''><Edit className='size-16 border p-3 shadow-md shadow-white/20 rounded-full  bg-emerald-500' /></span>
                 <p className='text-4xl tracking-tighter font-bold text--400 text-shadow-2xs text-shadow-yellow-400 opacity-80'>פרופיל המשתמש שלי {name}</p>
               </div>
+            </div>
+
+            
+            <div className='mt-10 flex w-full justify-between items-center p-6 shadow-2xl shadow-white/10 rounded-2xl bg-linear-to-tr from-violet-950 to-black/10'  >
+
+              <div className='flex items-end justify-center gap-20'>
+                
+                <div className='p-4 rounded-xl shadow-md flex relative items-center justify-center shadow-white/25 bg-linear-to-tr h-[200px] w-[200px]  from-black to-emerald-700/35'>
+                  <span><User className='size-28 '/></span>
+                  <span className='absolute right-2 bottom-0 p-1 rounded-full bg-violet-400 active:scale-95'><Camera/></span>
+                </div>
+
+                <div className='flex items-end gap-10 text-zinc-400 opacity-85 text-xs font-bold tracking-widest'>
+                  <span className='flex items-end gap-1'> <Shield className='fill-cyan-800'/> <p> {role} </p> </span>
+                  <span className='flex items-end gap-1'> <Timer/> <p> {createdAt} </p> </span>  
+                </div>
+
+              </div>
+
+
+
+
+
+              <div className='flex items-center gap-5'>
+                <p className='font-bold -tracking-wider text-2xl border-l pl-2 text-shadow-2xs text-shadow-amber-500 '> יציאה מהמערכת</p>
+                <button onClick={() => logOut()} className='p-1 rounded-xl bg-violet-400 shadow-md shadow-white/30 active:scale-95 duration-300'><LogOut className='size-11'/>   </button>
+              </div>
+
+            </div>
+
+
+            
+            <div className=' w-[100%] h-[50vh] rounded-xl  bg-linear-to-tr from-violet-950 to-black/10  mt-10 p-10 flex justify-between'>
+
+
+            <div className='h-full w-[70%] bg-white/5 rounded-4xl '>
+
+            </div>
+
+
+
+            <div className='h-full w-[29%] bg-white/5 rounded-4xl '>
+
+            </div>
+
             </div>
 
 

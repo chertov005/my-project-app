@@ -61,6 +61,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             if (user) {
                 token.id = user.id; // שומר את ה-ID של המשתמש בטוקן
                 token.role = user.role; // שומר את התפקיד (ADMIN/USER) בטוקן
+                token.createdAt = user.createdAt; // שומר את התפקיד (ADMIN/USER) בטוקן
             }
             return token;
         },
@@ -70,6 +71,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             if (session.user) {
                 session.user.id = token.id; // מעביר את ה-ID מהטוקן לאובייקט ה-session
                 session.user.role = token.role; // מעביר את התפקיד מהטוקן לאובייקט ה-session
+                session.user.createdAt = token.createdAt; // מעביר את התפקיד מהטוקן לאובייקט ה-session
             }
             return session;
         }
