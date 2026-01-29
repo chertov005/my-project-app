@@ -32,7 +32,13 @@ import {
   Camera,
   Shield,
   Timer,
-  LogOut
+  LogOut,
+  Settings,
+  Settings2,
+  DollarSign,
+  AlertTriangleIcon,
+  LocationEdit,
+  LockKeyholeIcon
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -138,6 +144,16 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
     { id: '00001', itemName: 'מקלדת', price: '20$' },
     { id: '00001', itemName: 'עכבר', price: '13$' },
+
+  ]
+
+  const profileAccount = [
+
+    {name:'אמצעי תשלום'  , desc:'עדכון אמעצי תשלום'  , icon: <DollarSign className='text-cyan-600'/> } ,
+    {name:'התראות'  , desc:'ניהול התראות'  , icon: <AlertTriangleIcon className='text-violet-500'/> } ,
+    {name:'כתובת'  , desc:' שינוי כתובת'  , icon: <LocationEdit className='text-red-600'/> } ,
+    {name:'אבטחת חשבון'  , desc:' ניהול סיסמאות ואבטחה דו שלבית'  , icon: <LockKeyholeIcon className='text-emerald-800'/> } ,
+
 
   ]
 
@@ -576,13 +592,13 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
             </div>
 
             
-            <div className='mt-10 flex w-full justify-between items-center p-6 shadow-2xl shadow-white/10 rounded-2xl bg-linear-to-tr from-violet-950 to-black/10'  >
+            <div className='mt-10 flex flex-col xl:flex-row w-full justify-between items-center p-6 shadow-2xl shadow-white/10 rounded-2xl bg-linear-to-tr from-violet-950 to-black/10'  >
 
-              <div className='flex items-end justify-center gap-20'>
+              <div className='flex flex-col xl:flex-row  items-end justify-center xl:gap-20'>
                 
                 <div className='p-4 rounded-xl shadow-md flex relative items-center justify-center shadow-white/25 bg-linear-to-tr h-[200px] w-[200px]  from-black to-emerald-700/35'>
                   <span><User className='size-28 '/></span>
-                  <span className='absolute right-2 bottom-0 p-1 rounded-full bg-violet-400 active:scale-95'><Camera/></span>
+                  <span className='absolute right-2 bottom-0 p-1 rounded-full bg-violet-400 active:scale-105'><Camera className=' hover:active:scale-110 duration-300'/></span>
                 </div>
 
                 <div className='flex items-end gap-10 text-zinc-400 opacity-85 text-xs font-bold tracking-widest'>
@@ -605,18 +621,86 @@ export default function ParsonalArea2({ name ,role ,email ,createdAt ,logOut }) 
 
 
             
-            <div className=' w-[100%] h-[50vh] rounded-xl  bg-linear-to-tr from-violet-950 to-black/10  mt-10 p-10 flex justify-between'>
+            <div className=' w-[100%] xl:min:h-[50vh] rounded-xl  bg-linear-to-tr from-violet-950 to-black/10  mt-10 p-10 flex gap-4 flex-col xl:flex-row justify-between'>
 
 
-            <div className='h-full w-[70%] bg-white/5 rounded-4xl '>
+            <div className='h-full w-full xl:w-[70%] bg-white/5 rounded-4xl '>
+
+            <form className='w-full p-10'>
+
+              <div className='flex items-start  gap-1'>
+                <span><Settings className='size-10 text-zinc-400'/></span>
+                <p className='text-zinc-400 tracking-widest font-bold text-2xl'>פרטים אישיים</p> 
+              </div>
+
+                    <div className='mt-10 text-zinc-400 font-bold text-xl flex gap-2 w-full'>
+                <div className='flex flex-col items-start space-y-1 w-full relative'>
+                  <label className='xl:text-2xl absolute bottom-0.5 right-4'>שם משתמש</label>
+                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={name} />
+                </div>
+
+                <div className='flex flex-col items-start space-y-1 w-full relative'>
+                  <label className='xl:text-2xl absolute bottom-0.5 right-4'>אימייל</label>
+                  <input type='email' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={email} />
+                </div>
+              </div>
+
+              <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
+                <label className='xl:text-2xl absolute bottom-0.5 right-4'> הרשאות משתמש </label>
+                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={role} />
+              </div>
+
+              
+              <div className='flex flex-col items-start space-y-1 w-full relative mt-10 text-zinc-400 font-bold'>
+                <label className='xl:text-2xl absolute bottom-0.5 right-4'> תאריך הצטרפות</label>
+                  <input type='text' className='text-center hover:scale-95 w-full bg-white/15 rounded-md p-2 duration-300 hover:bg-gray-300/30' placeholder={createdAt} />
+              </div>
+
+              <div className='mt-10'>
+                <button className='p-2 rounded bg-violet-400 w-full text-white active:scale-105 duration-300 '> שמירה</button>
+              </div>
+
+            </form>
 
             </div>
 
 
 
-            <div className='h-full w-[29%] bg-white/5 rounded-4xl '>
+            <div className='h-full w-full xl:w-[29%] bg-white/5 rounded-4xl '>
+
+
+            
+              <div className='flex items-center p-4 justify-center gap-1'>
+                <span><Settings2/></span>
+                <p>הגדרות חשבון</p>
+              </div>
+
+              <div className='grid grid-cols-1 gap-10 p-10  '>
+                {profileAccount?.map((item , i) => (
+                  <div key={i} className='rounded-xl flex flex-col text-center items-center shadow-xl p-4 active:scale-95 duration-300 shadow-white/5  bg-linear-to-tr from-violet-900 to-black/15'> 
+
+                  <div className='flex gap-4 items-center w-full text-center '>
+
+                    <div>
+                      <p>{item.icon}</p>
+                    </div>
+
+                    <div className='flex flex-col ga-2 items-center text-center '>
+                      <p className='text-xs font-bold tracking-widest text-zinc-400'>{item.desc}</p>
+        
+                    </div>
+
+
+                  </div>
+
+
+                  </div>
+                ))}
+              </div>
+        
 
             </div>
+            
 
             </div>
 
