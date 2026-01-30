@@ -11,7 +11,7 @@
 
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion';
 
 
@@ -53,39 +53,7 @@ import axios from 'axios';
 
 
 export default function ParsonalArea2({ name, role, email, createdAt, logOut }) {
-
-
-
-
-  // עדכון כמות מוצרים פלוס או מינוס 
-  const updateQty = (id , delta) => {
-
-    setItemCart(_arry => _arry.map(item => item.id === id ? {...item ,qty:Math.max(1 , item.qty + delta)} : item))
-
-  }
-
-
-  const removeFromCart = (_id) => {
-
-    setItemCart(_array => _array.filter( item => item.id !== _id))
-
-  }
-
-
     
-    
-    
-  //   // הסרת מוצר מהעגלה
-  // const removeFromCart = (_id) => {
-    
-  //   setItemCart(_arrry => _arrry.filter(item => item.id !== _id))
-
-  // }
-
-
-
-
-
 
   const [active, setActive] = useState('1')
   const [activeLastOrder, setActiveLastOrder] = useState('01')
@@ -96,15 +64,37 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
       { id: '3', itemName: 'עכבר גיימינג', price: 200, qty: 1, img: <LucideMouse className='size-12 p-2 rounded-full bg-violet-400 shadow-2xl' /> }
     ]
   )
-
+  
   const { register, formState: { errors }, handleSubmit, reset } = useForm()
   const [loading, setLoading] = useState(false)
   const [itSent, setItsSents] = useState(false)
-
+  
   const [arrPost, setArryPost] = useState([])
+  
+  
+  // עדכון כמות מוצרים פלוס או מינוס 
+  const updateQty = (id , delta) => {
+
+    setItemCart(_arry => _arry.map(item => item.id === id ? {...item ,qty:Math.max(1 , item.qty + delta)} : item))
+
+  }
+    
+    
+    // הסרת מוצר מהעגלה
+  const removeFromCart = (_id) => {
+    
+    setItemCart(_arrry => _arrry.filter(item => item.id !== _id))
+
+  }
 
 
 
+
+    // 2. שימוש ב-useMemo רק אחרי שה-State הוגדר
+  const subtotal = useMemo(() => {
+    return itemCart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+  }, [itemCart]);
+  
   const doForm = async (_data) => {
 
     try {
@@ -857,10 +847,15 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                 
                   <span className='mt-4 items-start text-start '>סכום ביניים</span>
 
-                <div className='flex justify-between w-full mt-4 text-center items-center'>
-                  <span className='text-xl'> מוצר </span>
-                  <span> מחיר </span>
-                </div>
+             {itemCart.map((item) => (
+                  <div key={`summary-${item.id}`} className="flex justify-between w-full items-center text-sm border-b border-white/5 pb-4">
+                    <div className="flex flex-col">
+                      <span className="text-white font-medium">{item.itemName} </span>
+                      <span className="text-gray-500 text-xs">כמות: {item.price}</span>
+                    </div>
+                    <span className="text-purple-300 font-mono">₪{(item.price * item.qty).toLocaleString()}</span>
+                  </div>
+                ))}
 
 
                 
@@ -873,6 +868,8 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                     <div className='flex justify-between w-full mt-4 text-center items-center  '>
                   <span className='text-xl'> סה"כ לתשלום </span>
                   <span> מחיר </span>
+                  <span className='font-mono'>₪{subtotal.toLocaleString()}</span>
+
                 </div>
                 
                 
@@ -913,74 +910,3 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
 
 
-
-
-
-
-
-        // {/* Cart Tab */}
-        // {active === '5' && (
-        //   <motion.div 
-        //     key="cart"
-        //     initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
-        //     className='mt-12 flex flex-col lg:flex-row gap-8'
-        //   >
-        //     <div className='flex-1 space-y-4'>
-        //         <div className='flex items-center gap-4 mb-8'>
-        //             <div className='p-4 bg-violet-500 rounded-2xl shadow-lg shadow-violet-500/30'><ShoppingCart /></div>
-        //             <div>
-        //                 <h2 className='text-3xl font-black text-white'>סל הקניות</h2>
-        //                 <p className='text-emerald-400 text-sm animate-pulse'>ממתינים לך {itemCart.length} פריטים</p>
-        //             </div>
-        //         </div>
-
-        //         {itemCart.length > 0 ? itemCart.map((item) => (
-        //             <div key={item.id} className='bg-white/5 border border-white/10 p-6 rounded-[2rem] flex items-center gap-6 group hover:bg-white/10 transition-all'>
-        //                 <div className='hidden md:block transition-transform group-hover:scale-110'>{item.img}</div>
-        //                 <div className='flex-1'>
-        //                     <h3 className='text-xl font-bold mb-2'>{item.itemName}</h3>
-        //                     <div className='flex items-center gap-4'>
-        //                         <div className='flex items-center bg-black/40 rounded-lg p-1 border border-white/10'>
-        //                             <button onClick={() => updateQty(item.id, -1)} className='p-1 hover:text-violet-400'><Minus size={16}/></button>
-        //                             <span className='px-4 font-mono font-bold'>{item.qty}</span>
-        //                             <button onClick={() => updateQty(item.id, 1)} className='p-1 hover:text-violet-400'><PlusIcon size={16}/></button>
-        //                         </div>
-        //                         <p className='text-violet-300 font-black text-lg'>₪{item.price * item.qty}</p>
-        //                     </div>
-        //                 </div>
-        //                 <button onClick={() => removeItem(item.id)} className='p-3 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all'>
-        //                     <Trash2 size={20}/>
-        //                 </button>
-        //             </div>
-        //         )) : (
-        //             <div className='py-20 text-center bg-white/5 rounded-[2rem] border border-dashed border-white/20'>
-        //                 <Package size={48} className='mx-auto text-zinc-600 mb-4' />
-        //                 <p className='text-zinc-400'>הסל שלך ריק כרגע</p>
-        //             </div>
-        //         )}
-        //     </div>
-
-        //     {/* Order Summary */}
-        //     <div className='w-full lg:w-96'>
-        //         <div className='bg-white/5 border border-white/10 p-8 rounded-[2rem] sticky top-24'>
-        //             <h3 className='text-xl font-bold mb-6 border-b border-white/10 pb-4'>סיכום הזמנה</h3>
-        //             <div className='space-y-4 mb-8'>
-        //                 <div className='flex justify-between text-zinc-400'>
-        //                     <span>סה"כ פריטים:</span>
-        //                     <span>{itemCart.length}</span>
-        //                 </div>
-        //                 <div className='flex justify-between text-zinc-400'>
-        //                     <span>משלוח:</span>
-        //                     <span className='text-emerald-400'>חינם</span>
-        //                 </div>
-        //                 <div className='flex justify-between text-2xl font-black pt-4 border-t border-white/10'>
-        //                     <span>לתשלום:</span>
-        //                     <span className='text-violet-400'>₪{totalPrice}</span>
-        //                 </div>
-        //             </div>
-        //             <button className='w-full py-4 bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-500/20 transition-all active:scale-95'>
-        //                 מעבר לתשלום
-        //             </button>
-        //         </div>
-        //     </div>
-        //   </motion.div>
