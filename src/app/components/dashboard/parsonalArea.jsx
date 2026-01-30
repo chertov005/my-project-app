@@ -39,7 +39,12 @@ import {
   AlertTriangleIcon,
   LocationEdit,
   LockKeyholeIcon,
-  ShoppingCart
+  ShoppingCart,
+  Computer,
+  KeyboardIcon,
+  LucideMouse,
+  PlusIcon,
+  Minus
 
 } from "lucide-react";
 import { useForm } from 'react-hook-form';
@@ -50,8 +55,47 @@ import axios from 'axios';
 export default function ParsonalArea2({ name, role, email, createdAt, logOut }) {
 
 
+
+
+  // עדכון כמות מוצרים פלוס או מינוס 
+  const updateQty = (id , delta) => {
+
+    setItemCart(_arry => _arry.map(item => item.id === id ? {...item ,qty:Math.max(1 , item.qty + delta)} : item))
+
+  }
+
+
+  const removeFromCart = (_id) => {
+
+    setItemCart(_array => _array.filter( item => item.id !== _id))
+
+  }
+
+
+    
+    
+    
+  //   // הסרת מוצר מהעגלה
+  // const removeFromCart = (_id) => {
+    
+  //   setItemCart(_arrry => _arrry.filter(item => item.id !== _id))
+
+  // }
+
+
+
+
+
+
   const [active, setActive] = useState('1')
   const [activeLastOrder, setActiveLastOrder] = useState('01')
+  const [itemCart, setItemCart] = useState(
+    [
+      { id: '1', itemName: 'מחשב נייד אסוס', price: 5400, qty: 1, img: <Computer className='size-12 p-2 rounded-full bg-violet-400 shadow-2xl' /> },
+      { id: '2', itemName: 'מקלדת מכנית', price: 400, qty: 1, img: <KeyboardIcon className='size-12 p-2 rounded-full bg-violet-400 shadow-2xl' /> },
+      { id: '3', itemName: 'עכבר גיימינג', price: 200, qty: 1, img: <LucideMouse className='size-12 p-2 rounded-full bg-violet-400 shadow-2xl' /> }
+    ]
+  )
 
   const { register, formState: { errors }, handleSubmit, reset } = useForm()
   const [loading, setLoading] = useState(false)
@@ -106,6 +150,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
   useEffect(() => {
     doApiPost()
   }, [])
+
 
 
 
@@ -746,14 +791,96 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
               <div className='w-full h-[60vh]  mt-20 flex justify-between xl:w-[80%]  mx-auto '>
 
-              <div className='w-[70%] h-full p-4 bg-linear-to-tr  from-violet-950 to-black/70 rounded-xl shadow-xl shadow-white/10' > 
+                <div className='w-[70%] h-full p-4 bg-linear-to-tr  from-violet-950 to-black/70 rounded-xl shadow-xl shadow-white/10' >
 
-              </div>
+                <div>
+                  {
+                    itemCart.length > 0
+
+                    ?
+
+                    <div className='grid grid-cols-1 gap-10 items-center justify-center p-2'>
+                      {itemCart.map((item , i) => (
+                        <div key={i} className='flex items-center gap-4 shadow-xl relative rounded-2xl shadow-white/20 p-4 bg-linear-to-tr from-black via-violet-800/20 hover:scale-95 duration-300 '>
+
+                 
+                            <p className=''>{item.img}</p>
+                         
+
+                          <div className='flex flex-col items-start p-4 gap-4'>
+                            <p className='text-xl tracking-widest font-bold text-violet-400'>שם המוצר:{item.itemName}</p>
+
+                            <div className='flex items-start gap-5'>
 
 
-              <div className='w-[28%] h-full  p-4 bg-linear-to-tr from-violet-950 via-violet-100/10 rounded-xl shadow-xl shadow-white/10'>
+                                            <div className='flex items-center bg-black/40 rounded-lg p-1 border border-white/10'> 
+                                    <button onClick={() => updateQty(item.id ,-1)}  className='p-1 hover:text-violet-400'><Minus size={16}/></button>
+                                    <span className='px-4 font-mono font-bold'>{item.qty}</span>
+                                   <button onClick={() => updateQty(item.id , 1)} className='p-1 hover:text-violet-400'><PlusIcon size={16}/></button>
+                                </div>
+                              <p className='font-bold tracking-widest text-xl'>מחיר:{item.price} $ </p>
+                            </div>
 
-              </div>
+                            <span onClick={() => removeFromCart(item.id)} className='absolute left-10 bottom-10 active:scale-95'><Trash2 className=''/></span>
+                          </div>
+
+                        </div>
+                      ))}
+                    </div>
+
+                    :
+
+                    <div className='flex flex-col items-center justify-center text-center gap-2 relative' style={{backgroundImage:<Package/>}}> 
+
+                    <div className='flex flex-col items-center gap-5 absolute top-50'>
+
+                      <div className='flex items-center gap-2'>
+                        <span><Package className='animate-bounce size-16'/></span>
+                        <p className='text-2xl font-bold animate-bounce text-'>אופס...</p>
+                      </div>
+                      <p className='text-4xl tracking-widest font-extralight text-shadow-2xs text-shadow-fuchsia-600'>עגלת הקניות שלך ריקה </p>
+                      <p className='font-bold anim'>בוא  נתחיל את הקניות שלך .</p>
+
+                    </div>
+
+                    </div>
+                  }
+                </div>
+
+                </div>
+
+
+                <div className='w-[28%] flex flex-col gap-10 min:h-[20vh] items-center text-zinc-400 justify-center p-4  font-bold tracking-widest bg-linear-to-tr from-vwhite via-violet-100/10 rounded-3xl shadow-xl shadow-white/10 '>
+
+                <p className='border-b font-bold tracking-widest text-2xl text-violet-400 '>סיכום הזמנה</p>
+
+                
+                  <span className='mt-4 items-start text-start '>סכום ביניים</span>
+
+                <div className='flex justify-between w-full mt-4 text-center items-center'>
+                  <span className='text-xl'> מוצר </span>
+                  <span> מחיר </span>
+                </div>
+
+
+                
+                <div className='flex justify-between w-full mt-4 text-center items-center border-b py-2 '>
+                  <span className='text-xl'> עלות משלוח  </span>
+                  <span> חינם </span>
+                </div>
+
+
+                    <div className='flex justify-between w-full mt-4 text-center items-center  '>
+                  <span className='text-xl'> סה"כ לתשלום </span>
+                  <span> מחיר </span>
+                </div>
+                
+                
+                <div className='w-full'>
+                  <button className='w-full rounded-xl p-4 bg-violet-400 text-white active:scale-95 duration-300 font-bold text-xl'>מעבר לתשלום</button>
+                </div>
+
+                </div>
 
               </div>
 
@@ -771,3 +898,89 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // {/* Cart Tab */}
+        // {active === '5' && (
+        //   <motion.div 
+        //     key="cart"
+        //     initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
+        //     className='mt-12 flex flex-col lg:flex-row gap-8'
+        //   >
+        //     <div className='flex-1 space-y-4'>
+        //         <div className='flex items-center gap-4 mb-8'>
+        //             <div className='p-4 bg-violet-500 rounded-2xl shadow-lg shadow-violet-500/30'><ShoppingCart /></div>
+        //             <div>
+        //                 <h2 className='text-3xl font-black text-white'>סל הקניות</h2>
+        //                 <p className='text-emerald-400 text-sm animate-pulse'>ממתינים לך {itemCart.length} פריטים</p>
+        //             </div>
+        //         </div>
+
+        //         {itemCart.length > 0 ? itemCart.map((item) => (
+        //             <div key={item.id} className='bg-white/5 border border-white/10 p-6 rounded-[2rem] flex items-center gap-6 group hover:bg-white/10 transition-all'>
+        //                 <div className='hidden md:block transition-transform group-hover:scale-110'>{item.img}</div>
+        //                 <div className='flex-1'>
+        //                     <h3 className='text-xl font-bold mb-2'>{item.itemName}</h3>
+        //                     <div className='flex items-center gap-4'>
+        //                         <div className='flex items-center bg-black/40 rounded-lg p-1 border border-white/10'>
+        //                             <button onClick={() => updateQty(item.id, -1)} className='p-1 hover:text-violet-400'><Minus size={16}/></button>
+        //                             <span className='px-4 font-mono font-bold'>{item.qty}</span>
+        //                             <button onClick={() => updateQty(item.id, 1)} className='p-1 hover:text-violet-400'><PlusIcon size={16}/></button>
+        //                         </div>
+        //                         <p className='text-violet-300 font-black text-lg'>₪{item.price * item.qty}</p>
+        //                     </div>
+        //                 </div>
+        //                 <button onClick={() => removeItem(item.id)} className='p-3 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all'>
+        //                     <Trash2 size={20}/>
+        //                 </button>
+        //             </div>
+        //         )) : (
+        //             <div className='py-20 text-center bg-white/5 rounded-[2rem] border border-dashed border-white/20'>
+        //                 <Package size={48} className='mx-auto text-zinc-600 mb-4' />
+        //                 <p className='text-zinc-400'>הסל שלך ריק כרגע</p>
+        //             </div>
+        //         )}
+        //     </div>
+
+        //     {/* Order Summary */}
+        //     <div className='w-full lg:w-96'>
+        //         <div className='bg-white/5 border border-white/10 p-8 rounded-[2rem] sticky top-24'>
+        //             <h3 className='text-xl font-bold mb-6 border-b border-white/10 pb-4'>סיכום הזמנה</h3>
+        //             <div className='space-y-4 mb-8'>
+        //                 <div className='flex justify-between text-zinc-400'>
+        //                     <span>סה"כ פריטים:</span>
+        //                     <span>{itemCart.length}</span>
+        //                 </div>
+        //                 <div className='flex justify-between text-zinc-400'>
+        //                     <span>משלוח:</span>
+        //                     <span className='text-emerald-400'>חינם</span>
+        //                 </div>
+        //                 <div className='flex justify-between text-2xl font-black pt-4 border-t border-white/10'>
+        //                     <span>לתשלום:</span>
+        //                     <span className='text-violet-400'>₪{totalPrice}</span>
+        //                 </div>
+        //             </div>
+        //             <button className='w-full py-4 bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-500/20 transition-all active:scale-95'>
+        //                 מעבר לתשלום
+        //             </button>
+        //         </div>
+        //     </div>
+        //   </motion.div>
