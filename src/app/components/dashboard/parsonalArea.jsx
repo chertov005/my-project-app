@@ -68,7 +68,6 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
   const { register, formState: { errors }, handleSubmit, reset } = useForm()
   const [loading, setLoading] = useState(false)
   const [itSent, setItsSents] = useState(false)
-  
   const [arrPost, setArryPost] = useState([])
   
   
@@ -88,13 +87,14 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
   }
 
 
+//חישוב סכום כולל של המערך מחיר כפול כמות
+ const totalSum = useMemo(() => {
 
+      return itemCart.reduce(( acc , item) => acc + (item.price * item.qty) ,0)
 
-    // 2. שימוש ב-useMemo רק אחרי שה-State הוגדר
-  const subtotal = useMemo(() => {
-    return itemCart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-  }, [itemCart]);
-  
+    } ,[itemCart])
+    
+
   const doForm = async (_data) => {
 
     try {
@@ -149,8 +149,8 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
     { id: '1', name: 'לוח בקרה אישי', harf: '#', icon: <LayoutDashboard className='size-5' /> },
     { id: '2', name: 'הפוסטים שלי', harf: '/posts', icon: <FileText className='size-5' /> },
     { id: '3', name: 'יצירת פוסט', harf: '/edit', icon: <Edit3 className='size-5' /> },
-    { id: '4', name: 'פרופיל משתמש', harf: '/profile', icon: <User className='size-5' /> },
-    { id: '5', name: 'סל קניות', harf: '/buy', icon: <ShoppingCart className='size-5' /> }
+    { id: '4', name: 'פרופיל משתמש', harf: '/profile', icon: <User className='size-5'  /> },
+    { id: '5', name: 'סל קניות', harf: '/buy', icon:<div className='relative'> <ShoppingCart className='size-5 rev'/>  {itemCart.length > 0 && <span className='p-1 flex items-center mt-2  rounded-full animate-bounce text-white absolute w-5 h-5 bottom-5 bg-red-500'>{itemCart.length}</span>}  </div>   }
 
   ]
 
@@ -753,7 +753,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
         active === '5' && (
 
-          <motion.div className='flex flex-col w-full h-full'
+          <motion.div className='flex flex-col w-full h-full '
 
 
             initial={{ opacity: 0, y: 20 }}
@@ -764,6 +764,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
           >
 
+              
 
             <div className='mt-20'>
 
@@ -773,15 +774,15 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
                 <div className='flex flex-col items-start gap-2'>
                   <p className='text-5xl font-bold tracking-wider'>סל הקניות שלי</p>
-                  <p className='text-xs font-bold tracking-widest text-red-600 opacity-80 border-b animate-pulse'> ממתינים לך 3 פריטים חדשים </p>
+                  <p className='text-xs font-bold tracking-widest text-red-600 opacity-80 border-b animate-pulse'> ממתינים לך <span className='xl:text-xl text-xs'>{itemCart.length}</span> פריטים חדשים </p>
                 </div>
 
               </div>
 
 
-              <div className='w-full h-[60vh]  mt-20 flex justify-between xl:w-[80%]  mx-auto '>
+              <div className='w-full xl:h-[60vh]  h-full mt-20 flex xl:flex-row flex-col  xl:justify-between xl:w-[80%] gap-y-10 xl:gap-y-0  mx-auto '>
 
-                <div className='w-[70%] h-full p-4 bg-linear-to-tr  from-violet-950 to-black/70 rounded-xl shadow-xl shadow-white/10' >
+                <div className='xl:w-[70%]  w-full h-full p-4 bg-linear-to-tr  from-violet-950 to-black/70 rounded-xl shadow-xl shadow-white/10' >
 
                 <div>
                   {
@@ -798,7 +799,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                          
 
                           <div className='flex flex-col items-start p-4 gap-4'>
-                            <p className='text-xl tracking-widest font-bold text-violet-400'>שם המוצר:{item.itemName}</p>
+                            <p className='xl:text-xl text-xs tracking-widest font-bold text-violet-400'>שם המוצר:{item.itemName}</p>
 
                             <div className='flex items-start gap-5'>
 
@@ -808,7 +809,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                                     <span className='px-4 font-mono font-bold'>{item.qty}</span>
                                    <button onClick={() => updateQty(item.id , 1)} className='p-1 hover:text-violet-400'><PlusIcon size={16}/></button>
                                 </div>
-                              <p className='font-bold tracking-widest text-xl'>מחיר:{item.price} $ </p>
+                              <p className='font-bold tracking-widest text-xs xl:text-xl'>מחיר:{item.price} $ </p>
                             </div>
 
                             <span onClick={() => removeFromCart(item.id)} className='absolute left-10 bottom-10 active:scale-95'><Trash2 className=''/></span>
@@ -840,23 +841,32 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                 </div>
 
 
-                <div className='w-[28%] flex flex-col gap-10 min:h-[20vh] items-center text-zinc-400 justify-center p-4  font-bold tracking-widest bg-linear-to-tr from-vwhite via-violet-100/10 rounded-3xl shadow-xl shadow-white/10 '>
+                <div className='xl:w-[28%] w-full h-full flex flex-col gap-4 xl:min:h-[20vh] items-center text-zinc-400 justify-center p-4  font-bold tracking-widest bg-linear-to-tr from-vwhite via-violet-100/10 rounded-3xl shadow-xl shadow-white/10 '>
 
                 <p className='border-b font-bold tracking-widest text-2xl text-violet-400 '>סיכום הזמנה</p>
 
                 
                   <span className='mt-4 items-start text-start '>סכום ביניים</span>
 
-             {itemCart.map((item) => (
-                  <div key={`summary-${item.id}`} className="flex justify-between w-full items-center text-sm border-b border-white/5 pb-4">
-                    <div className="flex flex-col">
-                      <span className="text-white font-medium">{item.itemName} </span>
-                      <span className="text-gray-500 text-xs">כמות: {item.price}</span>
-                    </div>
-                    <span className="text-purple-300 font-mono">₪{(item.price * item.qty).toLocaleString()}</span>
-                  </div>
-                ))}
+                  <div className='w-full flex flex-col text-xs'>
+                    {itemCart?.map((item , i) => (
+                      <div key={i} className='flex w-full justify-between items-center  p-4 border-b bg-white/5 rounded-md'> 
 
+                      <div className='flex flex-col items-center   '>
+                      <span>{item.itemName}</span>
+                      <span className='text-xs'> כמות {item.qty}</span>
+                      </div>
+
+                      <div>
+                        <span className='font-bold tracking-widest'>{(item.qty * item.price).toLocaleString()} $ </span>
+                      </div>
+                      
+
+                        
+                      </div>
+                    ))}
+                  </div>
+                  
 
                 
                 <div className='flex justify-between w-full mt-4 text-center items-center border-b py-2 '>
@@ -867,14 +877,15 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
                     <div className='flex justify-between w-full mt-4 text-center items-center  '>
                   <span className='text-xl'> סה"כ לתשלום </span>
-                  <span> מחיר </span>
-                  <span className='font-mono'>₪{subtotal.toLocaleString()}</span>
+                  <span>  מחיר : <span>{totalSum.toLocaleString()} $</span></span>
+             
+
 
                 </div>
                 
                 
                 <div className='w-full'>
-                  <button className='w-full rounded-xl p-4 bg-violet-400 text-white active:scale-95 duration-300 font-bold text-xl'>מעבר לתשלום</button>
+                  <button className='w-full rounded-xl p-2 text-xs bg-violet-400 text-white active:scale-95 duration-300 font-bold text-xl'>מעבר לתשלום</button>
                 </div>
 
                 </div>
