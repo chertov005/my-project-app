@@ -804,15 +804,15 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                             <div className='flex items-start gap-5'>
 
 
-                                            <div className='flex items-center bg-black/40 rounded-lg p-1 border border-white/10'> 
-                                    <button onClick={() => updateQty(item.id ,-1)}  className='p-1 hover:text-violet-400'><Minus size={16}/></button>
-                                    <span className='px-4 font-mono font-bold'>{item.qty}</span>
-                                   <button onClick={() => updateQty(item.id , 1)} className='p-1 hover:text-violet-400'><PlusIcon size={16}/></button>
+                                            <div className='flex xl:flex-row flex-col items-center bg-black/40 rounded-lg p-1 border border-white/10'> 
+                                    <button onClick={() => updateQty(item.id ,-1)}  className='p-1 hover:text-violet-400'><Minus className='xl:size-5 size-3'/></button>
+                                    <span className='px-4 font-mono font-bold text-xs'>{item.qty}</span>
+                                   <button onClick={() => updateQty(item.id , 1)} className='p-1 hover:text-violet-400'><PlusIcon className='xl:size-5 size-3'/></button>
                                 </div>
                               <p className='font-bold tracking-widest text-xs xl:text-xl'>מחיר:{item.price} $ </p>
                             </div>
 
-                            <span onClick={() => removeFromCart(item.id)} className='absolute left-10 bottom-10 active:scale-95'><Trash2 className=''/></span>
+                            <span onClick={() => removeFromCart(item.id)} className='absolute left-10 bottom-10 active:scale-95'><Trash2 className='xl:size-5 size-3'/></span>
                           </div>
 
                         </div>
