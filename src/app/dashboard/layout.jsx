@@ -1,39 +1,34 @@
 
+import SidBarDashboard from '../components/dashboard/sidBarDashboard';
+import { auth, signOut } from '@/auth';
 
-
-
-import SidBarDashboard from '../components/dashboard/sidBarDashboard'
-import { auth ,signOut } from '@/auth'
-
-export  default async function layoutDashboard({children}) {
-
-  const session = await auth()
-
-  const {name ,role} = session?.user
+export default async function LayoutDashboard({ children }) {
+  const session = await auth();
+  const name = session?.user?.name || "אורח";
+  const role = session?.user?.role || "User";
 
   const logOutUser = async () => {
-
-    'use server'
-
-    await signOut({redirectTo:'/login'})
-
-  }
+    'use server';
+    await signOut({ redirectTo: '/login' });
+  };
 
   return (
-    <div dir='rtl' className=' h-screen w-full bg-black text-white  ' >
-
-      <div className='flex w-full  h-full '>
-
-        <div className='xl:w-[15%] h-full w-[1%] '>
-          <SidBarDashboard name={name } role={role} myLogOut={logOutUser}/>
+    <div dir='rtl' className='h-screen w-full bg-black text-white overflow-hidden'>
+      <div className='flex w-full h-full'>
+        {/* Sidebar container */}
+        <div className='xl:w-[15%] h-full w-0 xl:w-72'>
+       
+            <SidBarDashboard name={name} role={role} myLogOut={logOutUser} />
+      
         </div>
 
-        <main className='w-[97%] h-full '> 
-          {children}
+        {/* Main Content */}
+        <main className='flex-1 h-full overflow-auto'>
+       
+            {children}
+         
         </main>
-
       </div>
-      
     </div>
-  )
+  );
 }

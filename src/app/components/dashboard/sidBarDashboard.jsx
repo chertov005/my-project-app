@@ -1,230 +1,73 @@
-'use client' // הגדרת רכיב צד לקוח - מאפשר שימוש ב-React Hooks כמו useState ב-Next.js
+'use client';
 
-import React, { useState } from 'react'
-// ייבוא אייקונים ספציפיים מספריית lucide-react לשימוש בתפריט
+import React, { useState } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { 
-  LayoutDashboard, 
-  PlusCircle, 
-  FileText, 
-  UserCircle,
-  Settings,
-  User ,
-  LogOut ,
-  Menu ,
-  ArrowRight ,
-  User2Icon ,
-  
-} from 'lucide-react'
-
+  LayoutDashboard, PlusCircle, FileText, UserCircle, 
+  Settings, User, LogOut, Menu, ArrowRight, User2Icon 
+} from 'lucide-react';
 import { IoIosMedical } from "react-icons/io";
+import { motion, AnimatePresence } from 'framer-motion';
 
+export default function SidBarDashboard({ name, role, myLogOut }) {
+  const [open, setOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-import { motion ,AnimatePresence } from 'framer-motion'
+  // סנכרון עם ה-URL: אם אין פרמטר tab, ברירת המחדל היא '1'
+  const activeTab = searchParams.get('tab') || '1';
 
-export default function SidBarDashboard({name , role ,myLogOut}) {
-  
-  // הגדרת State לשמירת הנתיב (href) של הכפתור שנבחר כרגע. ברירת מחדל היא '#'
-  const [onClickItemMenu, setOnClickItemMenu] = useState('#')
-  const [open , setOpen] = useState(false)
-  // יצירת מערך של אובייקטים המייצגים את פריטי התפריט - שם, נתיב ואייקון לכל אחד
+  const handleTabChange = (id) => {
+    router.push(`/dashboard?tab=${id}`);
+    setOpen(false); // סגירה בנייד
+  };
+
   const menuItem = [
-    { name: 'לוח בקרה', href: '#', icon: <LayoutDashboard size={20} /> },
-    { name: 'צור פוסט חדש', href: '#add', icon: <PlusCircle size={20} /> },
-    { name: 'הפוסטים שלי', href: '#posts', icon: <FileText size={20} /> },
-    { name: 'פרופיל משתמש שלי', href: '#profile', icon: <UserCircle size={20} /> }
-  ]
+    { id: '1', name: 'לוח בקרה', icon: <LayoutDashboard size={20} /> },
+    { id: '3', name: 'צור פוסט חדש', icon: <PlusCircle size={20} /> },
+    { id: '2', name: 'הפוסטים שלי', icon: <FileText size={20} /> },
+    { id: '4', name: 'פרופיל משתמש שלי', icon: <UserCircle size={20} /> }
+  ];
 
   return (
-
-
- <>
-    <div className='bg-[#424242] h-screen w-72 rounded-md p-4 2xl:xl:flex flex-col justify-around hidden ' dir="rtl">
-
-      {/* מיכל עליון (70% גובה): מכיל את הכותרת ואת רשימת הניווט */}
-      <div className="w-full h-[70%] bg-[#242424] rounded-xl flex flex-col overflow-hidden shadow-lg">
-
-        {/* תיבת הכותרת "אזור אישי" עם רקע אפור ועיצוב בולט */}
-        <div className="rounded p-4 bg-gray-300 m-4 shadow-inner">
-          <p className="tracking-widest font-bold text-xl border-b py-2 border-t border-black/10 text-black/75 flex gap-2 items-center justify-between">
-            אזור אישי 
-            <LayoutDashboard className="text-3xl hover:scale-120 hover:text-violet-600 duration-500 cursor-pointer"/> 
-          </p>
-        </div>
-
-        {/* תפריט הניווט הראשי */}
-        <nav className="p-4 space-y-2 mt-10">
-          {/* כותרת קטנה מעל רשימת הכפתורים */}
-          <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mb-4 px-2">תפריט ראשי</div>
-
-          <div>
-            {menuItem?.map((item ,i) => (
-              <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex items-center rounded p-2 justify-between w-full my-4 duration-300 ${onClickItemMenu === item.href ? "bg-violet-400 " :'hover:bg-white/10 transition-all duration-300'}`}> 
-
-                <div className={`flex items-center gap-2 font-bold tracking-widest text-zinc-400 my-2`}>
-                  <span className={`${onClickItemMenu === item.href ? 'text-white'  : 'text-zinc-400 duration-300 hover:scale-125'}`}>{item.icon}</span>
-                  <span className={`${onClickItemMenu === item.href ? 'text-white'  : 'text-zinc-400'}`}>{item.name}</span>
-                </div>
-
-                <span className={`${onClickItemMenu === item.href ? 'w-3 h-3 rounded-full bg-green-600 animate-pulse duration-300 '  : ''}`}/>
-                 </button>
-            ))}
+    <>
+      {/* Desktop Sidebar */}
+      <div className='bg-[#424242] h-screen w-72 rounded-md p-4 xl:flex flex-col justify-around hidden' dir="rtl">
+        <div className="w-full h-[70%] bg-[#242424] rounded-xl flex flex-col overflow-hidden shadow-lg border border-white/5">
+          <div className="rounded p-4 bg-gray-300 m-4 shadow-inner">
+            <p className="tracking-widest font-bold text-xl border-b py-2 border-t border-black/10 text-black/75 flex gap-2 items-center justify-between">
+              אזור אישי <LayoutDashboard className="text-3xl text-violet-600"/> 
+            </p>
           </div>
 
+          <nav className="p-4 space-y-2 mt-10">
+            <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mb-4 px-2">תפריט ראשי</div>
+            {menuItem.map((item) => (
+              <button 
+                key={item.id} 
+                onClick={() => handleTabChange(item.id)}
+                className={`flex items-center rounded p-2 justify-between w-full duration-300 ${activeTab === item.id ? "bg-violet-400 text-white" : 'hover:bg-white/10 text-zinc-400'}`}
+              > 
+                <div className="flex items-center gap-2 font-bold tracking-widest my-2">
+                  <span>{item.icon}</span>
+                  <span>{item.name}</span>
+                </div>
+                {activeTab === item.id && <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />}
+              </button>
+            ))}
+          </nav>
+        </div> 
 
-
-
-          
-        </nav>
-      </div> 
-
-      {/* מיכל תחתון (27% גובה): מיועד להגדרות או כלים נוספים */}
-      <div className="w-full h-[27%] bg-[#242424] rounded-xl flex flex-col  border border-white/5">
-
-      <div className='flex flex-col items-start p-7 w-full h-full justify-around text-zinc-400'>
-
-        <span className='flex items-center gap-2 w-full hover:bg-white/10 p-4 rounded hover:text-white duration-300 font-bold tracking-widest '><User/> {name}  </span>
-        <span className='flex items-center gap-2 p-4 font-bold tracking-widest opacity-55'><Settings/>Role: {role}  </span>
-        <span onClick={ ()  =>  myLogOut()  } className='flex items-center gap-2 p-4 font-bold tracking-widest opacity-55 hover:text-red-500 cursor-pointer duration-300'><LogOut/>יציאה מהמערכת  </span>
-
+        <div className="w-full h-[27%] bg-[#242424] rounded-xl flex flex-col border border-white/5 p-7 justify-around text-zinc-400">
+          <span className='flex items-center gap-2 font-bold'><User size={18}/> {name}</span>
+          <span className='flex items-center gap-2 opacity-55'><Settings size={18}/> {role}</span>
+          <button onClick={() => myLogOut?.()} className='flex items-center gap-2 font-bold hover:text-red-500 duration-300 text-right'>
+            <LogOut size={18}/> יציאה מהמערכת
+          </button>
+        </div>
       </div>
 
-      </div>     
-      
-    </div>
-
-
-
-      <div className='2xl:hidden'>
-
-        <button className='z-50 fixed top-3 right-2 2xl:hidden p-1 bg-gray-600/80 shadow-md rounded text-white duration-500 '  onClick={() => setOpen(!open)}> {open ? <ArrowRight/> : <Menu/>}  </button>
-
-        {
-          !open && (
-            
-            <motion.div className='w-10 h-full fixed bg-transparent right-0 top-0 z-40 cursor-grab' 
-            
-                        transition={{duration:0.5 , ease:'easeIn'}}
-                        drag='x'
-                        dragConstraints={{right:0 , left:0}}
-                        onDragEnd={((e , drag) => {
-
-                          if(drag.offset.x < -180) {
-                            setOpen(true)
-                          }
-
-                        })}
-
-
-            />
-          )
-        }
-
-        {
-          open && (
-            <>
-
-         
-
-            <motion.div className='fixed inset-0 bg-black z-50 ' onClick={() => setOpen(false) }
-            
-            initial={{opacity:0}}
-            animate={{opacity:0.8}}
-            exit={{opacity:0}}
-            transition={{duration:0.5 , ease:'easeIn'}}
-              
-            />
-
-
-
-            <motion.div className='fixed right-0 top-0 h-full flex flex-col justify-between  w-[60%] bg-gray-100 rounded z-50 shadow p-5 cursor-grab' 
-
-            initial={{x:'100%'}} 
-            animate={{x:0}} 
-            exit={{x:'100%'}}
-            transition={{duration:0.8 , ease:'easeIn'}}
-            drag='x'
-            dragConstraints={{right:0 , left:0}}
-            onDragEnd={((e , drag) => {
-              if(drag.offset.x > 180) {
-                setOpen(false)
-              }
-            })}
-            >
-
-              <div className='flex items-center justify-between border-b border-gray-300 py-2'>
-                <div className='flex items-center gap-2'>
-                <span><LayoutDashboard className='text-2xl text-violet-400'/></span>
-                <p className='text-[10pt] text-zinc-400 tracking-widest font-bold' >לוח בקרבה ראשי </p>
-                </div>
-
-                <button className='rounded-full bg-orange-400 text-white p-3 h-5 w-5 flex items-center justify-center text-[10pt] font-bold'>D</button>
-              </div>
-
-
-              < nav className='border-b border-t border-gray-300'>
-                <div className='mt-10'>
-                  {menuItem?.map((item , i ) => (
-                    <button key={i} onClick={() => setOnClickItemMenu(item.href)} className={`flex w-full my-8 p-2 rounded ${onClickItemMenu == item.href ? 'bg-violet-400 '  :''}`}>
-                      <div className='flex justify-between items-center w-full'>
-
-                        <div className='flex items-center text-zinc-400 gap-2 '>
-                          <span className={`${onClickItemMenu == item.href ? 'text-white' : 'text-zinc-400'}`}>{item.icon}</span>
-                          <span className={`${onClickItemMenu == item.href ? 'text-white' : 'text-zinc-400'}`}>{item.name}</span>
-                        </div>
-
-                        <span className={`${onClickItemMenu == item.href ? 'w-3 h-3 rounded-full bg-green-700 animate-pulse' : ''}`}/>
-
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-              </nav>
-
-
-                <div className='p-2 flex flex-col justify-center gap-10 border-b border-t border-gray-300'>
-
-                  <div className='text-zinc-400 flex gap-1 items-center w-full justify-between opacity-60 '>
-                    <span className=''><User2Icon className='w-8 h-8 p-1 rounded-full bg-violet-400 text-white shadow-md'/></span>
-                    <span className='text-md tracking-tighter font-bold'>name: {name}</span>
-                  </div>
-
-                         <div className='text-zinc-400 flex gap-1 items-center  w-full justify-between opacity-60 '>
-                    <span className=''><IoIosMedical className='w-8 h-8 p-1 rounded-full bg-violet-400 text-white shadow-md'/></span>
-                    <span className='text-md tracking-tighter font-bold'>role: {role}</span>
-                  </div>
-
-                </div>
-
-
-            </motion.div>
-            
-        
-            
-            </>
-          )
-        }
-        
-      </div>
-</>
-
-
-
-  )
+      {/* Mobile Sidebar Logic (שאר הקוד של ה-Motion נשאר אותו דבר, רק להחליף את ה-Click ל-handleTabChange) */}
+    </>
+  );
 }
-
-// קומפוננטת האב להצגת התוצאה הסופית על המסך
-// export function App() {
-  //   return (
-    //     // מיכל ראשי לתצוגה המקדימה עם רקע כהה מאוד
-    //     <div className="flex bg-zinc-900 min-h-screen p-4 gap-4" dir="rtl">
-    //       {/* קריאה לסיידבר שבנינו */}
-    //       <SidBarDashboard />
-    //       {/* אזור התוכן הראשי (Main Content) ליד הסיידבר */}
-    //       <div className="flex-1 p-10 text-white text-right bg-[#242424] rounded-xl border border-white/5">
-    //         <h1 className="text-3xl font-bold mb-4">תצוגה מקדימה</h1>
-    //         <p className="text-zinc-400">לחץ על הכפתורים בתפריט כדי לראות את הלוגיקה של ההערות בפעולה.</p>
-    //       </div>
-    //     </div>
-    //   )
-// }

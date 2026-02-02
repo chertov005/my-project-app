@@ -12,6 +12,7 @@
 'use client'
 
 import React, { useEffect, useMemo, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 
@@ -53,9 +54,13 @@ import axios from 'axios';
 
 
 export default function ParsonalArea2({ name, role, email, createdAt, logOut }) {
-    
 
-  const [active, setActive] = useState('1')
+    const searchParams = useSearchParams();
+  const router = useRouter();
+  const active = searchParams.get('tab') || '1';
+
+  const setActive = (id) => router.push(`/dashboard?tab=${id}`);
+ 
   const [activeLastOrder, setActiveLastOrder] = useState('01')
   const [itemCart, setItemCart] = useState(
     [
@@ -508,10 +513,10 @@ const totalSum = useMemo(() => {
 
 
 
-
+/// יצירת פוסט חדש
       {
         active == '3' && (
-        
+      
           
           <motion.div className='flex flex-col w-full'
             initial={{ opacity: 0, y: 20 }}
@@ -600,7 +605,7 @@ const totalSum = useMemo(() => {
           </motion.div>
         )
       }
-    
+
 
 
 
