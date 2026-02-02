@@ -88,12 +88,12 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
 
 //חישוב סכום כולל של המערך מחיר כפול כמות
- const totalSum = useMemo(() => {
+const totalSum = useMemo(() => {
 
-      return itemCart.reduce(( acc , item) => acc + (item.price * item.qty) ,0)
+  return itemCart.reduce((acc , item) => acc + (item.price * item.qty) , 0)
 
-    } ,[itemCart])
-    
+} ,[itemCart])
+
 
   const doForm = async (_data) => {
 
@@ -511,7 +511,8 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
 
       {
         active == '3' && (
-
+        
+          
           <motion.div className='flex flex-col w-full'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -599,6 +600,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
           </motion.div>
         )
       }
+    
 
 
 
@@ -809,7 +811,7 @@ export default function ParsonalArea2({ name, role, email, createdAt, logOut }) 
                                     <span className='px-4 font-mono font-bold text-xs'>{item.qty}</span>
                                    <button onClick={() => updateQty(item.id , 1)} className='p-1 hover:text-violet-400'><PlusIcon className='xl:size-5 size-3'/></button>
                                 </div>
-                              <p className='font-bold tracking-widest text-xs xl:text-xl'>מחיר:{item.price} $ </p>
+                              <p className='font-bold tracking-widest text-xs xl:text-xl'>מחיר: {(item.price * item.qty).toLocaleString()}  $ </p>
                             </div>
 
                             <span onClick={() => removeFromCart(item.id)} className='absolute left-10 bottom-10 active:scale-95'><Trash2 className='xl:size-5 size-3'/></span>
