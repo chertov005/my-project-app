@@ -120,7 +120,7 @@ export default function SidBarDashboard({ name, role, myLogOut }) {
 
 
 
-            <div className='mt-20 border-b bg-white/5 rounded p-2 border-t'>
+            <div className='mt-20 border-b bg-white/5 rounded p-2 border-t border-zinc-400/80'>
 
               <div className='flex items-center gap-2 p-2'>
                 <Sparkles className='size-3'/>
@@ -131,10 +131,10 @@ export default function SidBarDashboard({ name, role, myLogOut }) {
                 {menuItem?.map((item , i) => (
                   <div key={i} onClick={() => handleTabChange(item.id)} className={`my-4 p-1 rounded  `}>
 
-                    <button className='flex justify-between w-full active:scale-105 duration-300'>
+                    <button className='flex justify-between w-full active:scale-105 duration-300 border-b border-b-zinc-400/20 p-0.5'>
                       <div className='flex items-center gap-2'>
-                      <span className='font-extrabold tracking-tighter'>{item.icon}</span>
-                      <span className='font-extrabold tracking-tighter'>{item.name}</span>
+                      <span className='font-extrabold tracking-tighter text-xl'>{item.icon}</span>
+                      <span className='font-extrabold tracking-tighter text-xl'>{item.name}</span>
                       </div>
                       <span className={`${activeTab === item.id ? 'w-3 h-3 rounded-full bg-green-400 animate-pulse duration-300 hover:scale-150' : ''}`}/>
                     </button>
