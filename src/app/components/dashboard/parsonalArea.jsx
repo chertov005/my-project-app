@@ -513,7 +513,6 @@ const totalSum = useMemo(() => {
 
 
 
-/// יצירת פוסט חדש
       {
         active == '3' && (
       

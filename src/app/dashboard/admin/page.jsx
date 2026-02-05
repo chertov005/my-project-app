@@ -1,4 +1,5 @@
 
+import AdminArea from "@/app/components/dashboard/adminArea"
 import { auth } from "@/auth"
 import {redirect} from 'next/navigation'
 
@@ -19,7 +20,7 @@ if ( role !== 'ADMIN') {
   return (
     <div className='p-4' dir='rtl'>
 
-        <p>Admin route2</p>
+      <AdminArea/>
       
     </div>
   )
