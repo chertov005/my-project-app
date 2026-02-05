@@ -6,7 +6,8 @@ import {
   LayoutDashboard, PlusCircle, FileText, UserCircle, 
   Settings, User, LogOut, Menu,  X, ArrowRight, User2Icon, 
   BellRing,
-  Sparkles
+  Sparkles,
+  Shield
 } from 'lucide-react';
 import { IoIosMedical } from "react-icons/io";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -142,10 +143,27 @@ export default function SidBarDashboard({ name, role, myLogOut }) {
                    </div>
                 ))}
               </div>
-
             </div>
 
             
+
+              <div className='mt-20 flex flex-col justify-end h-full w-full text-zinc-400 font-bold tracking-wider text-lg gap-10'>
+                <div  className='flex justify-between  gap-2 border-b border-zinc-400/15'>
+                  <span><User/>  </span> 
+                  <p className=''>{name}</p>
+                </div>
+
+                <div  className='flex justify-between  gap-2 border-b border-zinc-400/15'>
+                  <span><Shield className='text-emerald-500 fill-amber-50'/>  </span> 
+                  <p className=''>{role}</p>
+                </div>
+
+                <div   className='flex justify-between  gap-2'>
+                  <span onClick={() => myLogOut()}><LogOut className='text-emerald-500 fill-amber-50'/>  </span> 
+                  <p>יציאה מהעמכרת</p>
+                
+                </div>
+              </div>
 
      
 
