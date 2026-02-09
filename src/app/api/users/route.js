@@ -23,7 +23,8 @@ export async function GET() {
                 name: true,
                 id: true,
                 email: true,
-                role: true
+                role: true ,
+                createdAt:true
             }
         });
 
